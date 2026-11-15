@@ -2,6 +2,8 @@
 
 Aplicación nativa para iPhone (`iOS 17+`) construida con Swift, SwiftUI, CoreBluetooth, NetworkExtension, BackgroundTasks y WidgetKit. Comparte el motor de red en Go (`VigiaCore.xcframework` vía `gomobile`) y el contrato **API v1.5** del Agente Vigía 24/7.
 
+> **Estado actual:** La app iOS compila y pasa la construcción en simulador de Xcode en CI; las pruebas funcionales en un iPhone físico están pendientes (requieren emparejamiento inicial con Xcode y cuenta Apple Developer con permisos de Wi-Fi/App Groups, además de compilar `VigiaCore.xcframework` para el motor Go completo).
+
 ## Arquitectura
 
 - **Modo local (sin agente):** Escanea tu subred Wi-Fi actual mediante `VigiaEngineBridge` (usando `VigiaCore.xcframework` si está enlazado, o el respaldo en Swift puro), consulta la información de tu Wi-Fi actual (`NEHotspotNetwork`), evalúa hallazgos de seguridad y busca dispositivos Bluetooth LE cercanos con el radar de proximidad.

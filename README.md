@@ -51,7 +51,7 @@ Vigía descubre, identifica y vigila los dispositivos de tu red local en tiempo 
 - **Funcionamiento autónomo o vinculado:** escanea cualquier red Wi-Fi al instante sin requerir servidor, o vincúlate al Agente 24/7 en casa para historial continuo y acceso remoto vía Tailscale.
 - **Radar / Buscar señal:** detector frío/caliente, pulso acústico/háptico estilo **Geiger** y **vuelta guiada** con estimación de rumbo usando la brújula y el giroscopio del teléfono.
 - **Widgets de pantalla de inicio:** Jetpack Glance en Android y WidgetKit en iPhone.
-- **Transparencia sobre iOS:** por restricciones de privacidad de Apple, en iPhone las apps estándar no pueden leer la tabla ARP del sistema ni listar redes Wi-Fi vecinas (solo el SSID/BSSID de la red actual mediante `NEHotspotNetwork` con el entitlement correspondiente). El radar BLE funciona en tiempo real con `CoreBluetooth` y las alertas con la app cerrada se resuelven mediante `BGAppRefreshTask` + webhooks push (`ntfy`, Telegram, Home Assistant).
+- **Transparencia sobre iOS:** por restricciones de privacidad de Apple, en iPhone las apps estándar no pueden leer la tabla ARP del sistema ni listar redes Wi-Fi vecinas (solo el SSID/BSSID de la red actual mediante `NEHotspotNetwork` con el entitlement correspondiente). El radar BLE funciona en tiempo real con `CoreBluetooth` y las alertas con la app cerrada se resuelven mediante `BGAppRefreshTask` + webhooks push (`ntfy`, Telegram, Home Assistant). *(Nota: el target iOS compila y pasa Xcode/Simulator en CI; las pruebas en hardware iPhone físico están pendientes.)*
 
 ---
 

@@ -168,7 +168,7 @@ Si prefieres gestionar la unidad manualmente usando la plantilla incluida en `de
 
 Vigía necesita visibilidad directa de la interfaz física de tu LAN para leer la tabla ARP/NDP, enviar multicast mDNS/SSDP y descubrir dispositivos UPnP/NAT-PMP. Por eso **es obligatorio usar `network_mode: host`** (el modo `bridge` por defecto aísla al contenedor en una subred virtual `172.17.0.0/16`).
 
-> **Nota sobre macOS y Windows:** Docker Desktop ejecuta los contenedores dentro de una máquina virtual aislada, por lo que `network_mode: host` no expone la LAN física del Mac/PC. En macOS utiliza el LaunchAgent nativo descrito en la sección 2. En Linux, Raspberry Pi o NAS (Unraid, Synology, Debian, etc.), Docker funciona de forma nativa.
+> **Nota sobre macOS y Windows:** Docker Desktop ejecuta los contenedores dentro de una máquina virtual aislada, por lo que `network_mode: host` no expone la LAN física del Mac/PC. En macOS utiliza el LaunchAgent nativo descrito en la sección 2. En Linux, Raspberry Pi o NAS (Unraid, Synology, Debian, etc.), Docker funciona de forma nativa. Si usas **PC con Windows**, `vigia-agent install` solo automatiza servicios en macOS/Linux; en Windows puedes compilar el binario y ejecutarlo directamente con `vigia-agent.exe run -interval 5m` (o desplegarlo en Linux/Raspberry Pi en tu misma red).
 
 ### Despliegue con Docker Compose
 
@@ -203,6 +203,18 @@ Para actualizar la imagen tras descargar cambios:
 ```sh
 docker compose up -d --build
 ```
+
+### Cómo vincular la app móvil por primera vez (iMac / PC / Docker)
+
+1. Con el agente corriendo en la misma red local que tu teléfono, genera un código temporal de vinculación de 6 dígitos en el equipo servidor:
+   - **macOS (iMac/Mac):** `~/Library/Application\ Support/Vigia/vigia-agent pair`
+   - **Linux (`systemd`):** `vigia-agent pair` (o `sudo -u vigia /usr/local/bin/vigia-agent pair -data /var/lib/vigia`)
+   - **Docker:** `docker compose exec vigia-agent vigia-agent pair -data /data`
+   - **Ejecución manual / PC:** `vigia-agent pair` (misma ruta `-data` si usaste una personalizada)
+2. Abre **Vigía** en el teléfono y, en el **Panel**, toca la tarjeta **Vigilancia 24/7**.
+3. La app buscará el agente automáticamente en tu LAN vía mDNS (`_vigia._tcp`). Si no aparece (por ejemplo, si el firewall bloquea multicast UDP `5353`), selecciona **Agregar con IP y puerto** e introduce la IP local del servidor y el puerto `7341`.
+4. Escribe el código de **6 dígitos** mostrado en consola y toca **Vincular**. La app guardará el token y fijará la huella TLS SHA-256 del agente (`certSha256`) en Android Keystore / iOS Keychain.
+5. *(Opcional, acceso fuera de casa con Tailscale)*: instala Tailscale tanto en el servidor del agente como en tu teléfono; el agente anuncia automáticamente su IP `100.64.0.0/10` en `/api/v1/info`. En los ajustes de **Agente vinculado** dentro de la app, activa el modo remoto para consultar tu red vía Tailscale.
 
 ---
 
