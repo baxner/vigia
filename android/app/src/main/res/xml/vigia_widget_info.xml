@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Widget "Vigía" de pantalla de inicio (fase 8, ver docs/plan.md y
+    ui/widget/VigiaWidget.kt). minWidth/minHeight = 2x1 (ver el encargo:
+    "tamaños 2x1 y 3x2 al menos"); maxResize llega a 3x2 o más, según el
+    launcher.
+
+    updatePeriodMillis="0": sin sondeo propio del sistema. El resumen lo
+    refrescan AlertsSyncWorker (cada 15 min) y la app abierta, nunca este
+    widget por su cuenta (ver el encargo: "sin un sondeo propio más seguido
+    que cada 15 min").
+-->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:minWidth="110dp"
+    android:minHeight="40dp"
+    android:targetCellWidth="2"
+    android:targetCellHeight="1"
+    android:maxResizeWidth="250dp"
+    android:maxResizeHeight="180dp"
+    android:resizeMode="horizontal|vertical"
+    android:widgetCategory="home_screen"
+    android:previewImage="@mipmap/ic_launcher"
+    android:initialLayout="@layout/glance_default_loading_layout"
+    android:updatePeriodMillis="0" />

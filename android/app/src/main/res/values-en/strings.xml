@@ -1,0 +1,568 @@
+<resources>
+    <string name="app_name">Vigía</string>
+
+    <!-- Bottom navigation -->
+    <string name="nav_panel">Dashboard</string>
+    <string name="nav_devices">Devices</string>
+    <string name="nav_wifi">Wi-Fi</string>
+    <string name="nav_bluetooth">Bluetooth</string>
+
+    <!-- Dashboard -->
+    <string name="panel_not_connected">No network connection</string>
+    <string name="panel_scan_button">Scan network</string>
+    <string name="panel_scanning">Scanning…</string>
+    <string name="panel_cancel">Cancel</string>
+    <string name="panel_attention_title">Needs attention</string>
+    <string name="panel_risky_ports_none">No risky ports detected</string>
+    <string name="panel_by_type_title">By type</string>
+    <string name="panel_wifi_summary">Wi-Fi</string>
+    <string name="panel_last_scan">Last scan: %1$s</string>
+    <string name="panel_scan_error_title">Scan failed</string>
+    <string name="panel_scan_error">Could not complete the scan: %1$s</string>
+    <string name="panel_gateway">Router</string>
+    <string name="panel_ip_label">IP</string>
+    <string name="panel_vpn_note">Active VPN: scanning the local Wi-Fi network directly.</string>
+    <string name="panel_stage_sweep">Finding active devices…</string>
+    <string name="panel_stage_names">Reading names on the network…</string>
+    <string name="panel_stage_identify">Identifying brands and services…</string>
+    <string name="panel_tile_devices">Devices</string>
+    <string name="panel_tile_risks">Risks</string>
+    <string name="panel_tile_security">Security</string>
+    <string name="panel_tile_signal">Signal</string>
+    <string name="panel_status_never_scanned">Waiting for first scan</string>
+    <string name="panel_status_relative">Updated %1$s</string>
+    <string name="panel_time_now">just now</string>
+    <string name="time_ago_moment">a moment ago</string>
+    <string name="panel_time_seconds">%1$d s ago</string>
+    <string name="panel_time_minutes">%1$d min ago</string>
+    <string name="panel_time_hours">%1$d h ago</string>
+    <string name="panel_time_days">%1$d d ago</string>
+    <string name="panel_stage_agent">Agent is scanning the network…</string>
+
+    <!-- Devices -->
+    <string name="devices_search_hint">Search by name, IP, brand, or location…</string>
+    <string name="devices_filter_all">All</string>
+    <string name="devices_empty">You haven\'t scanned this network yet. Run a scan from Dashboard.</string>
+    <string name="devices_empty_filtered">No devices match your search or filter.</string>
+    <string name="devices_badge_self">This phone</string>
+    <string name="devices_badge_agent">Agent</string>
+    <string name="devices_unidentified">Unidentified device</string>
+    <string name="devices_badge_gateway">Router</string>
+    <string name="devices_badge_new">New</string>
+    <string name="devices_badge_important">Important</string>
+    <string name="devices_section_online">Online (%1$d)</string>
+    <string name="devices_section_offline">Offline (%1$d)</string>
+    <string name="devices_seen_relative">Seen %1$s</string>
+
+    <!-- Device detail -->
+    <string name="detail_why_title">How we know what it is</string>
+    <string name="detail_why_empty">Responded on the network, but didn\'t share any clues about what it is (normal for phones and some IoT devices).</string>
+    <string name="detail_network_title">Network</string>
+    <string name="detail_services_title">Announced services</string>
+    <string name="detail_ports_title">Open ports</string>
+    <string name="detail_no_ports">No open ports among the common ones.</string>
+    <string name="detail_scan_all_ports">Scan all 65,535 ports</string>
+    <string name="detail_scanning_ports">Scanning all 65,535 ports… (may take ~30 s)</string>
+    <string name="detail_full_scan_title">Full scan (1–65535)</string>
+    <string name="detail_full_scan_done">Open ports found: %1$s</string>
+    <string name="detail_full_scan_no_ports">None of the 65,535 ports responded.</string>
+    <string name="detail_full_scan_other_ip">Being scanned on another device (%1$s)…</string>
+    <string name="detail_mac">MAC</string>
+    <string name="detail_copied">%1$s copied</string>
+    <string name="detail_copy_action">Copy %1$s</string>
+    <string name="detail_mac_hidden">Hidden by Android</string>
+    <string name="detail_vendor">Manufacturer</string>
+    <string name="detail_hostname">Network name</string>
+    <string name="detail_sources">Detected via</string>
+    <string name="detail_last_seen">Last seen: %1$s</string>
+    <string name="detail_status_title">Status</string>
+    <string name="detail_online_since">Online · since %1$s</string>
+    <string name="detail_offline_since">Offline · last seen %1$s</string>
+    <string name="detail_first_seen_at">First seen on %1$s</string>
+    <string name="detail_timeline_title">Recent activity</string>
+    <string name="detail_event_first_seen">First seen</string>
+    <string name="detail_event_came_online">Came online</string>
+    <string name="detail_event_went_offline">Went offline</string>
+    <string name="detail_event_ip_changed">Changed IP</string>
+    <string name="detail_action_edit">Customize</string>
+    <string name="detail_action_forget">Forget device</string>
+    <string name="detail_forget_confirm_title">Forget this device?</string>
+    <string name="detail_forget_confirm_message">%1$s and its history will be removed from this network. If it\'s still connected, it will reappear on the next scan as a new device.</string>
+    <string name="detail_forget_cancel">Cancel</string>
+    <string name="detail_clue_bonjour">Announced via Bonjour (mDNS)</string>
+    <string name="detail_clue_bonjour_generic">service on the network</string>
+    <string name="detail_clue_upnp">Announced via UPnP (SSDP)</string>
+    <string name="detail_clue_upnp_generic">UPnP device</string>
+    <string name="detail_clue_port">Open port</string>
+    <string name="detail_clue_vendor">Network card manufacturer</string>
+    <string name="detail_clue_hostname">Network name</string>
+    <string name="detail_clue_web">Web page on the device</string>
+    <string name="detail_clue_tuya">Tuya Smart announcement</string>
+    <string name="detail_clue_tuya_detail">UDP broadcast on the local network</string>
+    <string name="detail_clue_self">This device</string>
+    <string name="detail_clue_self_detail">The device running the scan</string>
+    <string name="detail_clue_generic">Clue</string>
+
+    <!-- Customize device -->
+    <string name="edit_title">Customize device</string>
+    <string name="edit_save">Save</string>
+    <string name="edit_name_title">Name</string>
+    <string name="edit_type_title">Device type</string>
+    <string name="edit_type_automatic_of">Automatic (%1$s)</string>
+    <string name="edit_notes_title">Notes</string>
+    <string name="edit_notes_placeholder">E.g.: Living room smart plug, work laptop…</string>
+    <string name="edit_location_title">Location</string>
+    <string name="edit_location_placeholder">E.g.: Living room, Office, Bedroom…</string>
+    <string name="edit_important_title">Important</string>
+    <string name="edit_important_label">Mark as important device</string>
+    <string name="edit_important_hint">Highlights it in the list (useful for your router, cameras, or server).</string>
+
+    <!-- Type picker -->
+    <string name="type_picker_title">Device type</string>
+    <string name="type_picker_close">Close</string>
+    <string name="type_picker_search_hint">Search type…</string>
+    <string name="type_picker_automatic">Automatic (detected by Vigía)</string>
+
+    <!-- Wi-Fi -->
+    <string name="wifi_networks_title">Nearby Wi-Fi networks</string>
+    <string name="wifi_channel_chart_title">Channel occupancy</string>
+    <string name="wifi_rescan">Refresh</string>
+    <string name="wifi_connected_badge">Connected</string>
+    <string name="wifi_your_network_badge">Your network</string>
+    <string name="wifi_empty">No Wi-Fi networks found. Grant location permission and make sure Wi-Fi is turned on.</string>
+    <string name="wifi_needs_location">Android requires location permission to view nearby Wi-Fi networks.</string>
+    <string name="wifi_throttled">Android limits scans to 4 every 2 minutes; showing the latest result.</string>
+    <string name="wifi_scan_throttle_enabled">Wi-Fi scan limit active (Android)</string>
+    <string name="wifi_hero_no_connection">Not connected to Wi-Fi</string>
+    <string name="wifi_hero_distance">Approx. distance: %1$s</string>
+    <string name="wifi_hero_mesh">Mesh network: %1$d access points</string>
+    <string name="wifi_hero_warning_open">Unencrypted network: anyone nearby can read traffic</string>
+    <string name="wifi_hero_warning_weak">Weak encryption (%1$s): switch to WPA2 or WPA3 on your router</string>
+    <string name="wifi_hero_warning_wps">WPS enabled: vulnerable to PIN brute-force attacks</string>
+    <string name="wifi_hidden_ssid">(Hidden network)</string>
+    <string name="wifi_rtt_badge">802.11mc</string>
+    <string name="wifi_wps_badge">WPS</string>
+    <string name="wifi_wps_detail_title">WPS is enabled on this network</string>
+    <string name="wifi_wps_detail_message">Wi-Fi Protected Setup (WPS) lets devices join using an 8-digit PIN, which can be guessed in a few hours regardless of how strong your Wi-Fi password is. Disable WPS in your router settings if you don\'t use it.</string>
+    <string name="wifi_wps_detail_dismiss">Got it</string>
+
+    <!-- Permissions -->
+    <string name="permissions_title">Permissions for full Wi-Fi details</string>
+    <string name="permissions_location_reason">Android requires Location permission to read the Wi-Fi network name (SSID) and list nearby networks. Vigía does not use or save your geographic location.</string>
+    <string name="permissions_nearby_reason">Nearby Wi-Fi devices (Android 13+) to scan channels and estimate distances.</string>
+    <string name="permissions_grant">Grant permissions</string>
+    <string name="permissions_partial_hint">You can scan the local network without granting permissions; only the Wi-Fi name will be missing.</string>
+
+    <!-- 24/7 Agent (Dashboard card, pairing, and settings) -->
+    <string name="agent_card_title">24/7 Monitoring</string>
+    <string name="agent_card_not_linked_hint">Link your Vigía agent to monitor this network 24/7, even when the app is closed.</string>
+    <string name="agent_card_link_button">Link with agent</string>
+    <string name="agent_card_status_monitoring">Active · monitoring this network</string>
+    <string name="agent_card_status_monitoring_relative">Active · last scan %1$s</string>
+    <string name="agent_card_status_monitoring_never">Active · waiting for first scan</string>
+    <string name="agent_card_status_other_network">Linked to %1$s · you are on another network</string>
+    <string name="agent_card_status_unreachable">%1$s unreachable on this network</string>
+    <string name="agent_card_status_away_unreachable">Away from home · %1$s unreachable</string>
+    <string name="agent_card_status_remote">Remote · viewing your home via Tailscale</string>
+    <string name="agent_cert_changed_warning">The agent\'s certificate changed (was it reinstalled?). Re-link it from Settings if it was intentional.</string>
+    <string name="agent_header_badge">24/7 Monitoring</string>
+    <string name="agent_header_badge_remote">Remote · Tailscale</string>
+
+    <string name="pairing_title">Link with agent</string>
+    <string name="pairing_searching">Searching for agents on your network…</string>
+    <string name="pairing_found_none">No agent appeared automatically. Make sure vigia-agent is running on the same network, or enter the IP manually.</string>
+    <string name="pairing_rescan">Search again</string>
+    <string name="pairing_manual_toggle">Enter IP and port manually</string>
+    <string name="pairing_manual_host">Agent IP</string>
+    <string name="pairing_manual_port">Port</string>
+    <string name="pairing_manual_continue">Continue</string>
+    <string name="pairing_code_instructions">On the agent server, run: vigia-agent pair</string>
+    <string name="pairing_code_target">Linking with %1$s</string>
+    <string name="pairing_code_submit">Link</string>
+    <string name="pairing_error_invalid_code">Invalid or expired code. Generate a new one with vigia-agent pair.</string>
+    <string name="pairing_error_no_connection">Could not connect to the agent. Check that it is powered on and on the same network.</string>
+    <string name="pairing_error_generic">Could not link: %1$s</string>
+
+    <string name="agent_settings_title">Linked agent</string>
+    <string name="agent_settings_unlink">Unlink this agent</string>
+    <string name="agent_settings_unlink_confirm_title">Unlink agent?</string>
+    <string name="agent_settings_unlink_confirm_message">This phone will stop consulting %1$s and return to manual scanning.</string>
+    <string name="agent_settings_unlink_cancel">Cancel</string>
+    <string name="agent_settings_live_watch_title">Instant alerts while at home</string>
+    <string name="agent_settings_live_watch_subtitle">Keeps a quiet connection to your agent while you are on your Wi-Fi so alerts arrive within seconds, even when Vigía is closed.</string>
+    <string name="agent_settings_remote_view_title">View your home remotely</string>
+    <string name="agent_settings_remote_view_subtitle">When you are away from home, if your agent is reachable via Tailscale, show your home network instead of scanning the current network.</string>
+    <string name="agent_settings_webhooks_button">Send alerts to another service (webhooks)</string>
+    <string name="agent_settings_webhooks_subtitle">ntfy.sh, Home Assistant, Telegram, Discord, or any URL of yours.</string>
+
+    <!-- Webhooks (Phase 8) -->
+    <string name="webhooks_title">Webhooks</string>
+    <string name="webhooks_explanation">The agent sends an HTTP POST with the alert JSON every time something happens on your network—even when your phone is off or away from home.</string>
+    <string name="webhooks_empty_not_linked_title">No linked agent</string>
+    <string name="webhooks_empty_not_linked_subtitle">Webhooks are sent by the 24/7 agent from home. Link it first to configure them.</string>
+    <string name="webhooks_empty_title">No webhooks configured</string>
+    <string name="webhooks_empty_subtitle">Add a URL (for example, an ntfy.sh topic or a Home Assistant webhook) to receive alerts outside the app.</string>
+    <string name="webhooks_load_error">Could not load webhooks: %1$s</string>
+    <string name="webhooks_add_button">Add webhook</string>
+    <string name="webhooks_add_title">New webhook</string>
+    <string name="webhooks_url_placeholder">https://ntfy.sh/my-topic</string>
+    <string name="webhooks_url_error">Enter a valid http:// or https:// URL (not localhost or link-local)</string>
+    <string name="webhooks_types_label">Which alerts to send</string>
+    <string name="webhooks_types_hint">If you leave all unchecked, all alert types are sent.</string>
+    <string name="webhooks_secret_placeholder">For X-Vigia-Signature-256</string>
+    <string name="webhooks_secret_hint">If set, the agent signs the body with HMAC-SHA256 in the X-Vigia-Signature-256 header.</string>
+    <string name="webhooks_cancel">Cancel</string>
+    <string name="webhooks_save">Save</string>
+    <string name="webhooks_saving">Saving…</string>
+    <string name="webhooks_delete">Delete</string>
+    <string name="webhooks_delete_confirm_title">Delete this webhook?</string>
+    <string name="webhooks_delete_confirm_message">Alerts will no longer be sent to %1$s.</string>
+    <string name="webhooks_test_button">Try</string>
+    <string name="webhooks_test_result_ok">Sent · HTTP %1$d</string>
+    <string name="webhooks_test_result_error">Error: %1$s</string>
+    <string name="webhooks_last_status_ok">Last submission: HTTP %1$d</string>
+    <string name="webhooks_last_status_error">Last error: %1$s</string>
+    <string name="webhooks_last_status_none">No submissions yet</string>
+    <string name="webhooks_types_all">All alerts</string>
+
+    <!-- Alerts and notifications (Phase 4) -->
+    <string name="alert_channel_new_devices">New devices</string>
+    <string name="alert_channel_new_devices_desc">When a device connects to your network for the first time.</string>
+    <string name="alert_channel_important_devices">Important devices</string>
+    <string name="alert_channel_important_devices_desc">When a device marked with ★ goes offline or comes back online.</string>
+    <string name="alert_channel_agent_status">Agent status</string>
+    <string name="alert_channel_agent_status_desc">The agent lost sight of the network, or recovered it.</string>
+    <string name="alert_channel_security">Network security</string>
+    <string name="alert_channel_security_desc">Router changes, duplicate IPs, new port mappings, or risky services.</string>
+    <string name="alert_channel_internet">Internet</string>
+    <string name="alert_channel_internet_desc">When your internet connection goes down or comes back up.</string>
+    <string name="alert_channel_live_watch">24/7 Monitoring active</string>
+    <string name="alert_channel_live_watch_desc">Quiet persistent notification while Vigía listens for instant alerts on your Wi-Fi.</string>
+    <string name="live_watch_notification_title_one">Monitoring your network · 1 device online</string>
+    <string name="live_watch_notification_title_other">Monitoring your network · %1$d devices online</string>
+    <string name="live_watch_notification_title_unknown">Monitoring your network</string>
+    <string name="live_watch_notification_title_away_waiting">Outside your monitored network · waiting to return</string>
+    <string name="live_watch_notification_title_agent_unreachable">Agent unreachable · retrying</string>
+
+    <string name="alerts_title">Alerts</string>
+    <string name="alerts_empty_title">Everything is quiet</string>
+    <string name="alerts_empty_subtitle">There are no alerts yet. The agent will notify you here when a new device connects or an important one goes offline.</string>
+    <string name="alerts_empty_not_linked_title">No linked agent</string>
+    <string name="alerts_empty_not_linked_subtitle">Link the agent (Dashboard → 24/7 Monitoring) to receive alerts even when Vigía is closed.</string>
+    <string name="alerts_notif_permission_title">Enable notifications</string>
+    <string name="alerts_notif_permission_body">Grant notification permission so Vigía can alert you when something happens on your network.</string>
+    <string name="alerts_notif_permission_action">Allow</string>
+    <string name="alerts_settings_title">What to notify me about</string>
+    <string name="alerts_settings_done">Done</string>
+    <string name="alert_type_new_device">New devices</string>
+    <string name="alert_type_important_offline">Important device went offline</string>
+    <string name="alert_type_important_online">Important device came back online</string>
+    <string name="alert_type_agent_blind">Agent lost network visibility</string>
+    <string name="alert_type_agent_recovered">Agent recovered network visibility</string>
+    <string name="alert_type_router_changed">Router changed (IP or MAC)</string>
+    <string name="alert_type_arp_conflict">Two devices competing for the same IP</string>
+    <string name="alert_type_port_mapping_added">New port opened on the router (UPnP)</string>
+    <string name="alert_type_risky_service">Risky service opened on a device</string>
+    <string name="alert_type_internet_down">Internet connection went down</string>
+    <string name="alert_type_internet_restored">Internet connection restored</string>
+
+    <!-- Security (Phase 5) -->
+    <string name="security_title">Security</string>
+    <string name="security_score_format">Security: %1$d/100</string>
+    <string name="security_summary_none">No findings</string>
+    <string name="security_summary_one">1 item to review</string>
+    <string name="security_summary_items">%1$d items to review</string>
+    <string name="security_header_updated">Updated %1$s</string>
+    <string name="security_findings_title_high">High priority</string>
+    <string name="security_findings_title_medium">Medium priority</string>
+    <string name="security_findings_title_low">Low priority</string>
+    <string name="security_findings_title_info">Informational</string>
+    <string name="security_finding_action_title">What to do</string>
+    <string name="security_finding_open_device">View device</string>
+    <string name="security_finding_acknowledge">I know, it\'s intentional</string>
+    <string name="security_finding_undo_acknowledge">Undo</string>
+    <string name="security_acknowledged_title">Intentional (does not reduce score)</string>
+    <string name="security_finding_would_subtract_one">Would subtract 1 pt</string>
+    <string name="security_finding_would_subtract_other">Would subtract %1$d pts</string>
+    <string name="security_router_title">Your router</string>
+    <string name="security_router_ip">Internal IP</string>
+    <string name="security_router_mac">MAC</string>
+    <string name="security_router_upnp">UPnP IGD</string>
+    <string name="security_router_natpmp">NAT-PMP</string>
+    <string name="security_router_active">Active</string>
+    <string name="security_router_inactive">Inactive</string>
+    <string name="security_router_external_ip">Outbound IP</string>
+    <string name="security_router_reach_outer_ring">%1$s · Private IP (behind another network)</string>
+    <string name="security_router_reach_internet">Public IP (direct to the internet)</string>
+    <string name="security_router_reach_unknown">Could not be queried</string>
+    <string name="security_router_unavailable">Your router did not respond to UPnP or NAT-PMP (normal if both are disabled).</string>
+    <string name="security_router_modem_unavailable">The modem on this network (%1$s) did not respond to UPnP or NAT-PMP.</string>
+    <string name="security_mappings_title">Open port forwards</string>
+    <string name="security_mappings_empty">No ports forwarded to the outside.</string>
+    <string name="security_mapping_route">%1$s → %2$s</string>
+    <string name="security_mapping_since">Since %1$s</string>
+    <string name="security_mapping_source_upnp">UPnP</string>
+    <string name="security_mapping_source_probe">Detected</string>
+    <string name="security_outer_ring_title">Network in front of your router</string>
+    <string name="security_outer_ring_empty">No other devices detected on that network.</string>
+    <string name="security_from_here_title">Your router seen from here</string>
+    <string name="security_from_here_hint">You are on the network in front of your router. From here you can see what your router exposes to this network.</string>
+    <string name="security_from_here_no_ports">Your router does not respond on any common port from this network.</string>
+    <string name="security_from_here_need_scan">Scan this network to see which ports your router exposes from outside.</string>
+    <string name="security_from_here_scan_now">Scan this network</string>
+    <string name="security_from_here_scan_all_ports">Scan all 65,535 ports on the router</string>
+    <string name="security_from_here_scanning">Scanning router ports…</string>
+    <string name="security_empty_no_data_title">No data yet</string>
+    <string name="security_empty_no_data_subtitle">Scan your network or link the agent (Dashboard → 24/7 Monitoring) to view the security report.</string>
+    <string name="security_empty_agent_unreachable_title">Agent unreachable</string>
+    <string name="security_empty_agent_unreachable_subtitle">Could not consult the agent and there is no local scan of this network yet.</string>
+
+    <!-- Internet (Phase 7) -->
+    <string name="internet_title">Internet</string>
+    <string name="internet_state_up_title">Internet working</string>
+    <string name="internet_state_degraded_title">Slow or unstable internet</string>
+    <string name="internet_state_down_title">No internet</string>
+    <string name="internet_state_unknown_title">Waiting for first measurement…</string>
+    <string name="internet_since_label">Since %1$s</string>
+    <string name="internet_hop_router">Your router</string>
+    <string name="internet_hop_modem">ISP modem</string>
+    <string name="internet_hop_internet">Internet</string>
+    <string name="internet_hop_dns">DNS</string>
+    <string name="internet_ms_format">%1$s ms</string>
+    <string name="internet_no_data">No data</string>
+    <string name="internet_loss_label">Loss %1$d%%</string>
+    <string name="internet_graph_title">Latency and outages</string>
+    <string name="internet_range_24h">24 h</string>
+    <string name="internet_range_7d">7 days</string>
+    <string name="internet_graph_empty">The agent hasn\'t accumulated enough samples yet.</string>
+    <string name="internet_outages_title">Recent outages</string>
+    <string name="internet_outages_empty">No outages recorded</string>
+    <string name="internet_speed_title">Speed</string>
+    <string name="internet_speed_down">Download</string>
+    <string name="internet_speed_up">Upload</string>
+    <string name="internet_speed_latency_idle">Idle latency</string>
+    <string name="internet_speed_latency_loaded">Loaded latency</string>
+    <string name="internet_speed_history_title">Recent tests</string>
+    <string name="internet_speed_test_now">Test speed now</string>
+    <string name="internet_speed_testing">Measuring speed… (~25 s)</string>
+    <string name="internet_speed_test_already_running">A speed test is already in progress.</string>
+    <string name="internet_speed_test_error">Could not start speed test: %1$s</string>
+    <string name="internet_speed_tests_per_day_label">Automatic tests per day</string>
+    <string name="internet_speed_none">No speed tests yet</string>
+    <string name="internet_mbps_format">%1$s Mbps</string>
+    <string name="internet_ipv6_title">IPv6</string>
+    <string name="internet_ipv6_broken_note">Your router announces IPv6 on the network, but IPv6 cannot reach the internet—some apps may take several seconds before falling back to IPv4.</string>
+    <string name="internet_empty_not_linked_title">Requires the 24/7 agent</string>
+    <string name="internet_empty_not_linked_subtitle">Continuous latency, outage, and speed monitoring runs on the agent so it doesn\'t drain your phone\'s battery. Link it from Dashboard → 24/7 Monitoring.</string>
+    <string name="internet_empty_not_monitoring_title">Not on your monitored network</string>
+    <string name="internet_empty_not_monitoring_subtitle">Connect to your home Wi-Fi (and make sure the agent is reachable) to view your internet status and history.</string>
+    <string name="internet_panel_state_up">working</string>
+    <string name="internet_panel_state_degraded">slow</string>
+    <string name="internet_panel_state_down">down</string>
+    <string name="internet_panel_state_unknown">measuring…</string>
+    <string name="internet_panel_row_latency">Internet: %1$s · %2$s ms</string>
+    <string name="internet_panel_row_plain">Internet: %1$s</string>
+
+    <!-- Signal finder and Bluetooth (Phase 6) -->
+    <string name="radar_search_button">Find signal</string>
+
+    <string name="bluetooth_title">Nearby Bluetooth</string>
+    <string name="bluetooth_permission_explanation">Vigía needs permission to search for nearby Bluetooth devices (Android 12+). It is not used to determine your location, and nothing leaves your phone.</string>
+    <string name="bluetooth_radio_off_title">Bluetooth is turned off</string>
+    <string name="bluetooth_radio_off_subtitle">Turn on Bluetooth to see nearby BLE devices and locate them by signal strength.</string>
+    <string name="bluetooth_empty">Listening for nearby Bluetooth LE announcements…</string>
+    <string name="bluetooth_no_name">Unnamed device</string>
+    <string name="bluetooth_only_named">Named only</string>
+    <string name="bluetooth_random_address">Random address</string>
+    <string name="bluetooth_sibling_match">Matches %1$s on your network</string>
+
+    <string name="hunt_title">Find signal</string>
+    <string name="hunt_type_wifi">Wi-Fi</string>
+    <string name="hunt_type_bluetooth">Bluetooth</string>
+    <string name="hunt_rtt_chip">802.11mc · Measured distance</string>
+    <string name="hunt_detector_title">Detector</string>
+    <string name="hunt_trend_closer">Getting closer</string>
+    <string name="hunt_trend_farther">Getting farther</string>
+    <string name="hunt_trend_steady">Steady</string>
+    <string name="hunt_distance_measured">Measured: %1$s</string>
+    <string name="hunt_sound_label">Sound</string>
+    <string name="hunt_vibration_label">Vibration</string>
+    <string name="hunt_radar_title">Directional radar</string>
+    <string name="hunt_guided_turn_button">Take a guided turn</string>
+    <string name="hunt_guided_turn_instruction">Hold the phone in front of you and slowly turn a full circle (360°). Your body blocks the signal from behind: the strongest direction is where the device is.</string>
+    <string name="hunt_turn_ahead">Right ahead</string>
+    <string name="hunt_turn_behind">Behind you · turn 180°</string>
+    <string name="hunt_turn_right">Turn %1$d° right</string>
+    <string name="hunt_turn_left">Turn %1$d° left</string>
+    <string name="hunt_bearing_confidence_high">Clear direction</string>
+    <string name="hunt_bearing_confidence_medium">Approximate direction</string>
+    <string name="hunt_bearing_confidence_inconclusive">Inconclusive · try away from walls</string>
+    <string name="hunt_warning_slow_throttled">Slow updates (Android limits Wi-Fi scans). If you disable "Wi-Fi scan throttling" in Developer options, it updates every ~2 s.</string>
+    <string name="hunt_warning_no_permission_wifi">Missing Location or Nearby Wi-Fi devices permission to read signal strength.</string>
+    <string name="hunt_warning_no_permission_bluetooth">Missing Nearby devices (Bluetooth) permission to read signal strength.</string>
+    <string name="hunt_warning_radio_off_wifi">Turn on Wi-Fi to measure signal strength.</string>
+    <string name="hunt_warning_radio_off_bluetooth">Turn on Bluetooth to measure signal strength.</string>
+    <string name="hunt_warning_not_found">Haven\'t heard from this device for a while. Move closer or check that it is powered on.</string>
+
+    <!-- Home screen widget (Phase 8) -->
+    <string name="widget_title">Vigía</string>
+    <string name="widget_not_linked">Link your agent in Vigía to see your network status here.</string>
+    <string name="widget_devices_label">%1$d online</string>
+    <string name="widget_devices_short">%1$d eq.</string>
+    <string name="widget_alerts_label">%1$d unread</string>
+    <string name="widget_alerts_short">%1$d al.</string>
+    <string name="widget_internet_with_latency">%1$s · %2$d ms</string>
+    <string name="widget_internet_ms_short">%1$d ms</string>
+    <string name="widget_internet_none">No data</string>
+    <string name="widget_never_updated">Tap to open Vigía</string>
+
+    <!-- Accessibility (TalkBack, contentDescriptions, stateDescriptions) -->
+    <string name="a11y_back">Back</string>
+    <string name="a11y_more_options">More options</string>
+    <string name="common_and_more">+%1$d more</string>
+    <string name="devices_state_online">online</string>
+    <string name="devices_state_offline">offline</string>
+    <string name="devices_port_risky">Risky port</string>
+    <string name="radar_description_scanning">Network radar, scanning</string>
+    <plurals name="radar_description_devices">
+        <item quantity="zero">Network radar, no devices</item>
+        <item quantity="one">Network radar, %1$d device online</item>
+        <item quantity="other">Network radar, %1$d devices online</item>
+    </plurals>
+    <string name="panel_network_band_label">Band</string>
+    <string name="panel_network_band_value">%1$s, channel %2$d</string>
+    <string name="panel_network_speed_label">Speed</string>
+    <string name="panel_network_speed_value">%1$d megabits per second</string>
+    <string name="internet_graph_description_24h">Latency chart for the last 24 hours: average %1$s ms, maximum %2$s ms</string>
+    <string name="internet_graph_description_7d">Latency chart for the last 7 days: average %1$s ms, maximum %2$s ms</string>
+    <string name="internet_speed_tests_decrease">Fewer tests per day</string>
+    <string name="internet_speed_tests_increase">More tests per day</string>
+    <string name="security_finding_action_expanded">Expanded</string>
+    <string name="security_finding_action_collapsed">Collapsed</string>
+    <plurals name="security_outer_ring_count_plural">
+        <item quantity="one">%1$d device</item>
+        <item quantity="other">%1$d devices</item>
+    </plurals>
+    <string name="wifi_error_prefix">Notice: %1$s</string>
+    <string name="wifi_wps_badge_action">WPS enabled, view explanation</string>
+    <string name="wifi_channel_band_summary">%1$s band: %2$d networks</string>
+    <string name="wifi_channel_band_summary_connected">%1$s band: %2$d networks, connected on channel %3$d</string>
+    <string name="alerts_unread_state">Unread</string>
+    <string name="detail_full_scan_error">Error: %1$s</string>
+    <string name="detail_scan_all_ports_remote_disabled">Full port scanning is only available while connected to the local network.</string>
+
+    <!-- System errors and notifications -->
+    <string name="error_unknown">Unknown error</string>
+    <string name="scan_error_no_network">Connect to a Wi-Fi (or wired) network to scan.</string>
+    <string name="port_scan_channel_name">Port scans</string>
+    <string name="port_scan_notification_title">Scanning ports</string>
+    <string name="port_scan_error_interrupted">Interrupted; try again.</string>
+
+    <!-- Wi-Fi channel summary -->
+    <string name="wifi_channel_summary">%1$s · ch %2$d · %3$s</string>
+    <string name="wifi_channel_summary_with_center">%1$s · ch %2$d · center %3$d · %4$s</string>
+
+    <!-- Device sources and types -->
+    <string name="device_source_arp">ARP table</string>
+    <string name="device_source_ndp">IPv6 neighbors</string>
+    <string name="device_source_api">Device API</string>
+    <string name="device_source_self">this phone</string>
+
+    <string name="device_type_phone">Phone</string>
+    <string name="device_type_computer">Computer</string>
+    <string name="device_type_tv">TV</string>
+    <string name="device_type_router">Router</string>
+    <string name="device_type_printer">Printer</string>
+    <string name="device_type_camera">Camera</string>
+    <string name="device_type_speaker">Speaker</string>
+    <string name="device_type_console">Console</string>
+    <string name="device_type_nas">NAS</string>
+    <string name="device_type_iot">Smart device</string>
+    <string name="device_type_wearable">Wearable</string>
+    <string name="device_type_tablet">Tablet</string>
+    <string name="device_type_unknown">Unknown</string>
+
+    <!-- Device catalog categories -->
+    <string name="device_cat_mobile">Mobile</string>
+    <string name="device_cat_computers">Computers</string>
+    <string name="device_cat_av">Audio &amp; Video</string>
+    <string name="device_cat_smart_home">Smart home</string>
+    <string name="device_cat_security">Security</string>
+    <string name="device_cat_network">Networking</string>
+    <string name="device_cat_office">Office</string>
+    <string name="device_cat_other">Other</string>
+
+    <!-- Device catalog types -->
+    <string name="device_catalog_phone">Phone</string>
+    <string name="device_catalog_tablet">Tablet</string>
+    <string name="device_catalog_watch">Watch</string>
+    <string name="device_catalog_ereader">E-reader</string>
+    <string name="device_catalog_car">Car</string>
+    <string name="device_catalog_laptop">Laptop</string>
+    <string name="device_catalog_desktop">Desktop</string>
+    <string name="device_catalog_server">Server</string>
+    <string name="device_catalog_raspberry_pi">Raspberry Pi</string>
+    <string name="device_catalog_tv">TV</string>
+    <string name="device_catalog_streaming_dongle">Streaming stick</string>
+    <string name="device_catalog_smart_speaker">Smart speaker</string>
+    <string name="device_catalog_soundbar">Soundbar</string>
+    <string name="device_catalog_console">Console</string>
+    <string name="device_catalog_projector">Projector</string>
+    <string name="device_catalog_smart_bulb">Smart bulb</string>
+    <string name="device_catalog_led_strip">LED strip</string>
+    <string name="device_catalog_smart_plug">Smart plug</string>
+    <string name="device_catalog_smart_switch">Smart switch</string>
+    <string name="device_catalog_sensor">Sensor</string>
+    <string name="device_catalog_hub">Hub</string>
+    <string name="device_catalog_thermostat">Thermostat</string>
+    <string name="device_catalog_vacuum">Robot vacuum</string>
+    <string name="device_catalog_appliance">Appliance</string>
+    <string name="device_catalog_ac">Air conditioner</string>
+    <string name="device_catalog_camera">Camera</string>
+    <string name="device_catalog_doorbell">Doorbell</string>
+    <string name="device_catalog_nvr">NVR</string>
+    <string name="device_catalog_alarm">Alarm</string>
+    <string name="device_catalog_router">Router</string>
+    <string name="device_catalog_mesh_repeater">Mesh / Repeater</string>
+    <string name="device_catalog_switch">Switch</string>
+    <string name="device_catalog_access_point">Access point</string>
+    <string name="device_catalog_printer">Printer</string>
+    <string name="device_catalog_nas">NAS</string>
+    <string name="device_catalog_scanner">Scanner</string>
+    <string name="device_catalog_other">Other</string>
+
+    <!-- Location suggestions -->
+    <string name="location_living_room">Living room</string>
+    <string name="location_bedroom">Bedroom</string>
+    <string name="location_kitchen">Kitchen</string>
+    <string name="location_office">Office</string>
+    <string name="location_garden">Garden</string>
+    <string name="location_garage">Garage</string>
+
+    <!-- Port catalog -->
+    <string name="port_name_generic">Port %1$d</string>
+    <string name="port_name_515">Printer (LPD)</string>
+    <string name="port_name_631">IPP (Printer)</string>
+    <string name="port_name_8001">Samsung TV control</string>
+    <string name="port_name_8060">Roku control</string>
+    <string name="port_name_9100">Printer (RAW)</string>
+    <string name="port_name_62078">iPhone sync</string>
+    <string name="port_risk_21">Unencrypted file transfer</string>
+    <string name="port_risk_23">Unencrypted remote access</string>
+    <string name="port_risk_139">Legacy Windows file sharing</string>
+    <string name="port_risk_445">Windows file sharing, frequent attack target</string>
+    <string name="port_risk_554">Camera stream, sometimes unauthenticated</string>
+    <string name="port_risk_3389">Remote desktop, frequent brute-force target</string>
+    <string name="port_risk_5900">Remote desktop, sometimes without password</string>
+
+    <!-- Internet outage formatting -->
+    <string name="internet_outage_ongoing">ongoing</string>
+    <string name="internet_outage_less_than_min">less than 1 min</string>
+    <string name="internet_outage_minutes">%1$d min</string>
+    <string name="internet_outage_hours">%1$d h</string>
+    <string name="internet_outage_hours_minutes">%1$d h %2$d min</string>
+    <string name="internet_blame_lan">Your router</string>
+    <string name="internet_blame_modem">The modem</string>
+    <string name="internet_blame_isp">Your ISP</string>
+    <string name="internet_blame_unknown">Unknown</string>
+</resources>

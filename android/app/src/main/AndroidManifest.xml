@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Red: para hablar con el motor de escaneo y leer el estado de la Wi-Fi. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- WifiManager.startScan() lo exige (sin él, Android solo da resultados en caché). -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+
+    <!-- Para que el sistema no descarte los paquetes mDNS/SSDP durante el
+         escaneo (MulticastLock). -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
+
+    <!-- SSID/BSSID reales y disparar WifiManager.startScan() requieren
+         ubicación en todas las versiones con Wi-Fi scanning. -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- Android 12+ ignora la petición de FINE si no va junto con COARSE. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Android 13+: permiso moderno para interactuar con Wi-Fi sin pedir
+         ubicación de fondo. Lo pedimos junto a FINE_LOCATION porque Vigía sí
+         necesita el BSSID real (no tiene sentido neverForLocation aquí). -->
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
+
+    <!-- Fase 6, equipos Bluetooth cercanos (ver data/radar/). Android 12+ pide
+         BLUETOOTH_SCAN; sin neverForLocation porque la app sí estima dónde está
+         cada equipo (distancia y rumbo). Se pide en contexto, al abrir la
+         pestaña Bluetooth, no al abrir la app. -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <!-- Android 11 y anteriores. -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <!-- Opcionales: la app se instala igual en teléfonos sin Bluetooth LE o sin Wi-Fi RTT. -->
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
+    <uses-feature android:name="android.hardware.wifi.rtt" android:required="false" />
+
+    <!-- "Buscar señal" (fase 6): vibración corta del Geiger al acercarse. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <!-- Android 13+: obligatorio declararlo para poder pedirlo en tiempo de
+         ejecución (ver ui/permissions/NotificationPermission.kt). Se pide al
+         vincular o al activar alertas, nunca al abrir la app por primera vez
+         (ver docs/agente-api.md § "Alertas v1.1" y ui/alerts/AlertsScreen.kt). -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- "Avisos al instante" (ver docs/plan.md § "Fase 5.1"): servicio en
+         primer plano tipo connectedDevice que mantiene viva la conexión SSE
+         con el agente. En Android 14+ (UPSIDE_DOWN_CAKE) ese tipo exige además
+         uno de un puñado de permisos de conectividad; CHANGE_WIFI_STATE ya
+         está declarado arriba para el escaneo. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <!-- Para que LiveWatchService vuelva a arrancar solo tras reiniciar el
+         teléfono si el interruptor seguía prendido (ver BootStartReceiver). -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Sin respaldo en la nube: los escaneos describen la red de casa y no
+         salen del teléfono. -->
+    <application
+        android:allowBackup="false"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.Vigia"
+        android:supportsRtl="true">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Vigia"
+            android:configChanges="orientation|screenSize|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- "Avisos al instante" (ver docs/plan.md § "Fase 5.1" y data/agent/LiveWatchService.kt). -->
+        <service
+            android:name=".data.agent.LiveWatchService"
+            android:exported="false"
+            android:foregroundServiceType="connectedDevice" />
+
+        <receiver
+            android:name=".data.agent.BootStartReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Widget de pantalla de inicio (fase 8, ver ui/widget/VigiaWidget.kt). -->
+        <receiver
+            android:name=".ui.widget.VigiaWidgetReceiver"
+            android:exported="false"
+            android:label="@string/widget_title">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/vigia_widget_info" />
+        </receiver>
+    </application>
+</manifest>

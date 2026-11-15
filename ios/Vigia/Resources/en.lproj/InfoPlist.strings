@@ -1,0 +1,6 @@
+/* InfoPlist.strings (English) */
+"CFBundleDisplayName" = "Vigía";
+"CFBundleName" = "Vigía";
+"NSBluetoothAlwaysUsageDescription" = "Vigía uses Bluetooth to discover nearby devices and guide signal hunting.";
+"NSLocalNetworkUsageDescription" = "Vigía needs local network access to discover connected devices and communicate with your 24/7 Agent.";
+"NSLocationWhenInUseUsageDescription" = "Vigía requests location permission to inspect the connected Wi-Fi network and orient the Bluetooth radar compass.";

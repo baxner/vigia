@@ -1,0 +1,33 @@
+name: Solicitud de funcionalidad
+description: Propón una mejora o nueva capacidad para Vigía
+title: "[Feat]: "
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: component
+    attributes:
+      label: Componente
+      options:
+        - Motor Go (core/ o mobile/)
+        - Agente 24/7
+        - App Android
+        - App iOS (iPhone)
+        - Documentación / Despliegue
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problema o necesidad
+      description: ¿Qué caso de uso buscas resolver en tu red local?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Solución propuesta
+      description: Describe cómo te gustaría que funcionara manteniendo la arquitectura 100 % local y sin nube.
+    validations:
+      required: true

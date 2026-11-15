@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fondo del adaptive icon y de arranque: el fondo de "Radar Nocturno"
+         (ver VigiaColors.Background en ui/theme/Color.kt). -->
+    <color name="ic_launcher_background">#070B12</color>
+</resources>

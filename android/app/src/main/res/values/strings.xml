@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Vigía</string>
+
+    <!-- Navegación inferior -->
+    <string name="nav_panel">Panel</string>
+    <string name="nav_devices">Dispositivos</string>
+    <string name="nav_wifi">Wi-Fi</string>
+    <string name="nav_bluetooth">Bluetooth</string>
+
+    <!-- Panel -->
+    <string name="panel_not_connected">Sin Wi-Fi ni cable</string>
+    <string name="panel_scan_button">Escanear red</string>
+    <string name="panel_scanning">Escaneando…</string>
+    <string name="panel_cancel">Cancelar</string>
+    <string name="panel_attention_title">Atención</string>
+    <string name="panel_risky_ports_none">No se encontraron puertos de riesgo abiertos.</string>
+    <string name="panel_by_type_title">Por tipo</string>
+    <string name="panel_wifi_summary">Resumen Wi-Fi</string>
+    <string name="panel_last_scan">Último escaneo: %1$s</string>
+    <string name="panel_scan_error_title">No se pudo escanear</string>
+    <string name="panel_scan_error">No se pudo completar el escaneo: %1$s</string>
+    <string name="panel_gateway">Router</string>
+    <string name="panel_ip_label">IP</string>
+    <string name="panel_vpn_note">VPN activa: Vigía escanea la Wi-Fi de debajo, no la VPN.</string>
+    <string name="panel_stage_sweep">Buscando dispositivos</string>
+    <string name="panel_stage_names">Consultando nombres</string>
+    <string name="panel_stage_identify">Identificando dispositivos</string>
+
+    <!-- Panel: tiles y chip de estado -->
+    <string name="panel_tile_devices">Equipos</string>
+    <string name="panel_tile_risks">Riesgos</string>
+    <!-- Con informe de seguridad disponible, la tile de en medio cambia de "Riesgos" a esto (ver ui/security/) -->
+    <string name="panel_tile_security">Seguridad</string>
+    <string name="panel_tile_signal">Señal</string>
+    <string name="panel_status_never_scanned">Sin escanear</string>
+    <string name="panel_status_relative">hace %1$s</string>
+    <string name="panel_time_now">ahora mismo</string>
+    <string name="time_ago_moment">hace un momento</string>
+    <string name="panel_time_seconds">%1$d s</string>
+    <string name="panel_time_minutes">%1$d min</string>
+    <string name="panel_time_hours">%1$d h</string>
+    <string name="panel_time_days">%1$d d</string>
+
+    <!-- Dispositivos -->
+    <string name="devices_search_hint">Buscar por nombre, IP o fabricante</string>
+    <string name="devices_filter_all">Todos</string>
+    <string name="devices_empty">Todavía no has escaneado esta red.</string>
+    <string name="devices_empty_filtered">Ningún dispositivo coincide con el filtro.</string>
+    <string name="devices_badge_self">Este teléfono</string>
+    <string name="devices_badge_agent">Agente 24/7</string>
+    <string name="devices_unidentified">Sin identificar</string>
+    <string name="devices_badge_gateway">Router</string>
+    <string name="devices_badge_new">Nuevo</string>
+    <string name="devices_badge_important">Importante</string>
+    <string name="devices_section_online">En línea (%1$d)</string>
+    <string name="devices_section_offline">Sin conexión (%1$d)</string>
+    <string name="devices_seen_relative">Visto %1$s</string>
+
+    <!-- Detalle de dispositivo -->
+    <string name="detail_why_title">Por qué creemos que es esto</string>
+    <string name="detail_why_empty">Sin pistas suficientes: el dispositivo no se anunció ni respondió en ningún puerto conocido.</string>
+    <string name="detail_network_title">Red</string>
+    <string name="detail_services_title">Servicios</string>
+    <string name="detail_ports_title">Puertos abiertos</string>
+    <string name="detail_no_ports">No se encontraron puertos abiertos en el último escaneo.</string>
+    <string name="detail_scan_all_ports">Escaneo completo de puertos (~1,150)</string>
+    <string name="detail_scanning_ports">Escaneando ~1,150 puertos… sigue aunque salgas de aquí.</string>
+    <string name="detail_full_scan_title">Escaneo completo</string>
+    <string name="detail_full_scan_done">Escaneo completo · %1$s</string>
+    <string name="detail_full_scan_no_ports">Ningún puerto abierto de los ~1,150 revisados.</string>
+    <string name="detail_full_scan_other_ip">Hecho cuando tenía la IP %1$s</string>
+    <string name="detail_mac">MAC</string>
+    <string name="detail_copied">Copiado: %1$s</string>
+    <string name="detail_copy_action">Copiar %1$s</string>
+    <string name="detail_mac_hidden">no disponible (Android no la muestra)</string>
+    <string name="detail_vendor">Fabricante</string>
+    <string name="detail_hostname">Nombre de red</string>
+    <string name="detail_sources">Visto por</string>
+    <string name="detail_last_seen">Última vez visto: %1$s</string>
+
+    <!-- Detalle: estado y cronología (historial local) -->
+    <string name="detail_status_title">Estado</string>
+    <string name="detail_online_since">En línea desde %1$s</string>
+    <string name="detail_offline_since">Sin conexión desde %1$s</string>
+    <string name="detail_first_seen_at">Visto por primera vez %1$s</string>
+    <string name="detail_timeline_title">Cronología</string>
+    <string name="detail_event_first_seen">Visto por primera vez</string>
+    <string name="detail_event_came_online">Volvió a estar en línea</string>
+    <string name="detail_event_went_offline">Se desconectó</string>
+    <string name="detail_event_ip_changed">Cambió de IP</string>
+
+    <!-- Detalle: acciones -->
+    <string name="detail_action_edit">Editar</string>
+    <string name="detail_action_forget">Olvidar</string>
+    <string name="detail_forget_confirm_title">¿Olvidar este equipo?</string>
+    <string name="detail_forget_confirm_message">Vigía borrará el historial de %1$s. Si vuelve a conectarse, aparecerá como un equipo nuevo.</string>
+    <string name="detail_forget_cancel">Cancelar</string>
+
+    <!-- Detalle: línea de tiempo de pistas ("por qué creemos que es esto") -->
+    <string name="detail_clue_bonjour">Bonjour</string>
+    <string name="detail_clue_bonjour_generic">Servicio anunciado</string>
+    <string name="detail_clue_upnp">UPnP</string>
+    <string name="detail_clue_upnp_generic">Dispositivo UPnP</string>
+    <string name="detail_clue_port">Puerto abierto</string>
+    <string name="detail_clue_vendor">Fabricante</string>
+    <string name="detail_clue_hostname">Nombre de red</string>
+    <string name="detail_clue_web">Web</string>
+    <string name="detail_clue_tuya">Tuya</string>
+    <string name="detail_clue_tuya_detail">Protocolo de enchufes y focos inteligentes</string>
+    <string name="detail_clue_self">Este teléfono</string>
+    <string name="detail_clue_self_detail">Es el equipo donde corre Vigía.</string>
+    <string name="detail_clue_generic">Pista</string>
+
+    <!-- Editar equipo -->
+    <string name="edit_title">Editar equipo</string>
+    <string name="edit_save">Guardar</string>
+    <string name="edit_name_title">Nombre</string>
+    <string name="edit_type_title">Tipo</string>
+    <string name="edit_type_automatic_of">Automático (%1$s)</string>
+    <string name="edit_notes_title">Notas</string>
+    <string name="edit_notes_placeholder">Agrega una nota (opcional)</string>
+    <string name="edit_location_title">Ubicación</string>
+    <string name="edit_location_placeholder">¿Dónde está? (opcional)</string>
+    <string name="edit_important_title">Importante</string>
+    <string name="edit_important_label">Vigilar este equipo</string>
+    <string name="edit_important_hint">Te avisaremos cuando se desconecte o vuelva.</string>
+
+    <!-- Selector de tipo de equipo -->
+    <string name="type_picker_title">Elegir tipo</string>
+    <string name="type_picker_close">Cerrar</string>
+    <string name="type_picker_search_hint">Buscar tipo de equipo</string>
+    <string name="type_picker_automatic">Automático (lo que detectó Vigía)</string>
+
+    <!-- Wi-Fi -->
+    <string name="wifi_networks_title">Redes cercanas</string>
+    <string name="wifi_channel_chart_title">Analizador de canales</string>
+    <string name="wifi_rescan">Volver a escanear</string>
+    <string name="wifi_connected_badge">Conectada</string>
+    <string name="wifi_your_network_badge">Tu red</string>
+    <string name="wifi_empty">No se encontraron redes Wi-Fi. Prueba de nuevo.</string>
+    <string name="wifi_needs_location">Para ver las redes Wi-Fi cercanas, Android exige el permiso de ubicación. Vigía no guarda ni envía tu ubicación.</string>
+    <string name="wifi_throttled">Android limita los escaneos manuales; se muestran los últimos resultados disponibles.</string>
+    <string name="wifi_scan_throttle_enabled">Android limita los escaneos (4 cada 2 min). Para escanear sin límite: Opciones de desarrollador → Limitación de búsqueda de Wi-Fi.</string>
+    <string name="wifi_hero_no_connection">No estás conectado a ninguna red Wi-Fi.</string>
+    <string name="wifi_hero_distance">Distancia estimada: %1$s</string>
+    <string name="wifi_hero_mesh">Red mesh: %1$d puntos de acceso</string>
+    <string name="wifi_hero_warning_open">Red abierta: cualquiera puede conectarse sin contraseña.</string>
+    <string name="wifi_hero_warning_weak">Seguridad %1$s: conviene actualizar a WPA2 o WPA3.</string>
+    <string name="wifi_hero_warning_wps">WPS activo: conviene apagarlo en el router.</string>
+    <string name="wifi_hidden_ssid">(red oculta)</string>
+    <string name="wifi_rtt_badge">Distancia medida (RTT)</string>
+    <string name="wifi_wps_badge">WPS</string>
+    <string name="wifi_wps_detail_title">¿Qué es WPS?</string>
+    <string name="wifi_wps_detail_message">WPS permite entrar con un PIN de 8 dígitos; conviene apagarlo en el router.</string>
+    <string name="wifi_wps_detail_dismiss">Entendido</string>
+
+    <!-- Permisos -->
+    <string name="permissions_title">Vigía necesita algunos permisos</string>
+    <string name="permissions_location_reason">Ubicación: Android exige este permiso para leer el SSID/BSSID real y escanear redes Wi-Fi cercanas.</string>
+    <string name="permissions_nearby_reason">Dispositivos cercanos: para interactuar con la Wi-Fi en Android 13 o más nuevo.</string>
+    <string name="permissions_grant">Conceder permisos</string>
+    <string name="permissions_partial_hint">Sin estos permisos Vigía funciona igual, pero con menos información (sin el nombre real de la red ni redes cercanas).</string>
+
+    <!-- Panel: escaneo delegado al agente -->
+    <string name="panel_stage_agent">Escaneando con el agente</string>
+
+    <!-- Tarjeta "Vigilancia 24/7" -->
+    <string name="agent_card_title">Vigilancia 24/7</string>
+    <string name="agent_card_not_linked_hint">Vincula tu agente de Vigía para vigilar esta red las 24 horas, aunque cierres la app.</string>
+    <string name="agent_card_link_button">Vincular con el agente</string>
+    <string name="agent_card_status_monitoring">Vigilando</string>
+    <string name="agent_card_status_monitoring_relative">Vigilando · último escaneo %1$s</string>
+    <string name="agent_card_status_monitoring_never">Vigilando · todavía sin escanear</string>
+    <string name="agent_card_status_other_network">%1$s no vigila esta red</string>
+    <string name="agent_card_status_unreachable">Sin conexión con %1$s</string>
+    <!-- Fase 8: fuera de casa y ni la LAN del vínculo ni Tailscale contestaron -->
+    <string name="agent_card_status_away_unreachable">No se puede llegar a %1$s: revisa que Tailscale esté encendido.</string>
+    <!-- Fase 8: viendo la casa remoto por Tailscale -->
+    <string name="agent_card_status_remote">Viendo tu casa por Tailscale</string>
+    <string name="agent_cert_changed_warning">El certificado del agente cambió; vuelve a vincularlo.</string>
+    <string name="agent_header_badge">Vigilada 24/7</string>
+    <string name="agent_header_badge_remote">Tu casa, remoto</string>
+
+    <!-- Vinculación con el agente -->
+    <string name="pairing_title">Vincular agente</string>
+    <string name="pairing_searching">Buscando en la red local…</string>
+    <string name="pairing_found_none">No se encontró ningún agente por esta red. Prueba agregarlo a mano.</string>
+    <string name="pairing_rescan">Buscar otra vez</string>
+    <string name="pairing_manual_toggle">Agregar con IP y puerto</string>
+    <string name="pairing_manual_host">IP del agente</string>
+    <string name="pairing_manual_port">Puerto</string>
+    <string name="pairing_manual_continue">Continuar</string>
+    <string name="pairing_code_instructions">En el servidor del agente ejecuta: vigia-agent pair</string>
+    <string name="pairing_code_target">Vinculando con %1$s</string>
+    <string name="pairing_code_submit">Vincular</string>
+    <string name="pairing_error_invalid_code">Código inválido o vencido. Genera uno nuevo con vigia-agent pair.</string>
+    <string name="pairing_error_no_connection">No se pudo conectar con el agente. Revisa que esté prendido y en la misma red.</string>
+    <string name="pairing_error_generic">No se pudo vincular: %1$s</string>
+
+    <!-- Ajustes del agente -->
+    <string name="agent_settings_title">Agente vinculado</string>
+    <string name="agent_settings_unlink">Desvincular</string>
+    <string name="agent_settings_unlink_confirm_title">¿Desvincular este agente?</string>
+    <string name="agent_settings_unlink_confirm_message">Vigía dejará de usar %1$s para esta red y volverá a escanear sola. El agente sigue vigilando por su cuenta.</string>
+    <string name="agent_settings_unlink_cancel">Cancelar</string>
+    <string name="agent_settings_live_watch_title">Avisos al instante</string>
+    <string name="agent_settings_live_watch_subtitle">Notificación fija y silenciosa a cambio de recibir los avisos en segundos, con la app cerrada.</string>
+    <string name="agent_settings_remote_view_title">Ver tu casa remoto</string>
+    <string name="agent_settings_remote_view_subtitle">Fuera de casa, si el agente contesta por Tailscale, muestra Seguridad, Internet y Dispositivos de tu casa en vez de la red actual del teléfono.</string>
+    <string name="agent_settings_webhooks_button">Webhooks</string>
+    <string name="agent_settings_webhooks_subtitle">Conecta Vigía con Home Assistant u otros sistemas</string>
+
+    <!-- Pantalla "Webhooks" de Ajustes del agente (fase 8, ver docs/plan.md y docs/agente-api.md § "Webhooks") -->
+    <string name="webhooks_title">Webhooks</string>
+    <string name="webhooks_explanation">Un webhook avisa a otro sistema (Home Assistant, un servidor propio…) cada vez que el agente registra una alerta, con un POST directo por tu red o por Tailscale. Nada pasa por la nube.</string>
+    <string name="webhooks_empty_not_linked_title">Vincula el agente para administrar webhooks</string>
+    <string name="webhooks_empty_not_linked_subtitle">Los webhooks los manda el agente de casa: vincúlalo desde el Panel → Vigilancia 24/7.</string>
+    <string name="webhooks_empty_title">Sin webhooks todavía</string>
+    <string name="webhooks_empty_subtitle">Agrega uno para conectar Vigía con Home Assistant u otros sistemas.</string>
+    <string name="webhooks_load_error">No se pudo traer la lista: %1$s</string>
+    <string name="webhooks_add_button">Agregar webhook</string>
+    <string name="webhooks_add_title">Nuevo webhook</string>
+    <string name="webhooks_url_placeholder">https://tu-servidor/webhook</string>
+    <string name="webhooks_url_error">Escribe una URL http o https válida</string>
+    <string name="webhooks_types_label">Alertas a enviar</string>
+    <string name="webhooks_types_hint">Sin marcar ninguna, se manda cada tipo de alerta</string>
+    <string name="webhooks_secret_placeholder">Para firmar cada envío</string>
+    <string name="webhooks_secret_hint">Con un secreto, cada envío trae la cabecera X-Vigia-Signature: un HMAC-SHA256 del cuerpo con tu secreto, para que el otro sistema compruebe que de verdad viene de tu agente.</string>
+    <string name="webhooks_cancel">Cancelar</string>
+    <string name="webhooks_save">Agregar</string>
+    <string name="webhooks_saving">Agregando…</string>
+    <string name="webhooks_delete">Borrar</string>
+    <string name="webhooks_delete_confirm_title">¿Borrar este webhook?</string>
+    <string name="webhooks_delete_confirm_message">%1$s dejará de recibir las alertas de Vigía.</string>
+    <string name="webhooks_test_button">Probar</string>
+    <string name="webhooks_test_result_ok">Probado: código %1$d</string>
+    <string name="webhooks_test_result_error">Error al probar: %1$s</string>
+    <string name="webhooks_last_status_ok">Último envío: código %1$d</string>
+    <string name="webhooks_last_status_error">Último envío falló: %1$s</string>
+    <string name="webhooks_last_status_none">Sin envíos todavía</string>
+    <string name="webhooks_types_all">Todas las alertas</string>
+
+    <!-- Canales de notificación de alertas (ver docs/agente-api.md § "Alertas v1.1") -->
+    <string name="alert_channel_new_devices">Equipos nuevos</string>
+    <string name="alert_channel_new_devices_desc">Un equipo se conectó a tu red por primera vez.</string>
+    <string name="alert_channel_important_devices">Equipos importantes</string>
+    <string name="alert_channel_important_devices_desc">Un equipo marcado como importante se conectó o se desconectó.</string>
+    <string name="alert_channel_agent_status">Estado del agente</string>
+    <string name="alert_channel_agent_status_desc">El agente dejó de ver la red, o volvió a verla.</string>
+    <string name="alert_channel_security">Seguridad</string>
+    <string name="alert_channel_security_desc">Cambió el router, alguien se le hace pasar, una redirección de puertos nueva, o un equipo abrió un servicio de riesgo.</string>
+    <string name="alert_channel_internet">Internet</string>
+    <string name="alert_channel_internet_desc">Se cayó el internet de la casa, o volvió.</string>
+    <string name="alert_channel_live_watch">Vigilancia en vivo</string>
+    <string name="alert_channel_live_watch_desc">Notificación fija mientras Vigía mantiene la conexión con el agente para avisarte al instante.</string>
+
+    <string name="live_watch_notification_title_one">Vigía vigilando · 1 equipo</string>
+    <string name="live_watch_notification_title_other">Vigía vigilando · %1$d equipos</string>
+    <string name="live_watch_notification_title_unknown">Vigía vigilando tu red</string>
+    <string name="live_watch_notification_title_away_waiting">Vigía · fuera de casa, en espera</string>
+    <string name="live_watch_notification_title_agent_unreachable">Vigía · sin conexión con el agente</string>
+
+    <!-- Pantalla Alertas -->
+    <string name="alerts_title">Alertas</string>
+    <string name="alerts_empty_title">Sin alertas todavía</string>
+    <string name="alerts_empty_subtitle">Te avisaremos cuando se conecte un equipo nuevo, o cuando uno importante se desconecte o vuelva.</string>
+    <string name="alerts_empty_not_linked_title">Las alertas vienen del agente</string>
+    <string name="alerts_empty_not_linked_subtitle">Vincula el agente (Panel → Vigilancia 24/7) para recibir alertas aunque Vigía esté cerrada.</string>
+
+    <!-- Permiso de notificaciones (ver el encargo, punto 2: se pide al activar alertas, no al abrir la app) -->
+    <string name="alerts_notif_permission_title">Activa las notificaciones</string>
+    <string name="alerts_notif_permission_body">Para avisarte de equipos nuevos o importantes necesitamos tu permiso de notificaciones. Sin él, las alertas solo se ven aquí dentro.</string>
+    <string name="alerts_notif_permission_action">Activar</string>
+
+    <!-- Ajustes de alertas (ver el contrato, /alert-settings) -->
+    <string name="alerts_settings_title">Ajustes de alertas</string>
+    <string name="alerts_settings_done">Listo</string>
+    <string name="alert_type_new_device">Equipos nuevos</string>
+    <string name="alert_type_important_offline">Importante: se desconectó</string>
+    <string name="alert_type_important_online">Importante: volvió a conectarse</string>
+    <string name="alert_type_agent_blind">El agente dejó de ver la red</string>
+    <string name="alert_type_agent_recovered">El agente volvió a ver la red</string>
+    <string name="alert_type_router_changed">Cambió el router</string>
+    <string name="alert_type_arp_conflict">Alguien se hace pasar por el router</string>
+    <string name="alert_type_port_mapping_added">Redirección de puertos nueva</string>
+    <string name="alert_type_risky_service">Servicio de riesgo nuevo</string>
+    <string name="alert_type_internet_down">Se cayó el internet</string>
+    <string name="alert_type_internet_restored">Volvió el internet</string>
+
+    <!-- Pantalla Seguridad (ver docs/agente-api.md § "Seguridad v1.2") -->
+    <string name="security_title">Seguridad</string>
+    <string name="security_score_format">%1$d/100</string>
+    <string name="security_summary_none">Todo en orden.</string>
+    <string name="security_summary_one">1 cosa por revisar.</string>
+    <string name="security_summary_items">%1$d cosas por revisar.</string>
+    <string name="security_header_updated">Actualizado %1$s</string>
+
+    <string name="security_findings_title_high">Alta prioridad</string>
+    <string name="security_findings_title_medium">Media prioridad</string>
+    <string name="security_findings_title_low">Baja prioridad</string>
+    <string name="security_findings_title_info">Informativo</string>
+    <string name="security_finding_action_title">Qué hacer</string>
+    <string name="security_finding_open_device">Ver equipo</string>
+    <string name="security_finding_acknowledge">Ya lo sé, es a propósito</string>
+    <string name="security_finding_undo_acknowledge">Deshacer</string>
+    <string name="security_acknowledged_title">A propósito</string>
+    <string name="security_finding_would_subtract_one">Restaría 1 punto si no estuviera marcado</string>
+    <string name="security_finding_would_subtract_other">Restaría %1$d puntos si no estuviera marcado</string>
+
+    <string name="security_router_title">Router</string>
+    <string name="security_router_ip">IP</string>
+    <string name="security_router_mac">MAC</string>
+    <string name="security_router_upnp">UPnP</string>
+    <string name="security_router_natpmp">NAT-PMP</string>
+    <string name="security_router_active">Activo</string>
+    <string name="security_router_inactive">Inactivo</string>
+    <string name="security_router_external_ip">IP de salida</string>
+    <string name="security_router_reach_outer_ring">Lo que redirige tu router solo se ve desde la red de delante (%1$s); desde internet no llega.</string>
+    <string name="security_router_reach_internet">Lo que redirige tu router se ve desde internet: tiene IP pública.</string>
+    <string name="security_router_reach_unknown">No se pudo determinar desde dónde se ve lo que redirige tu router.</string>
+    <string name="security_router_unavailable">El router no contestó ni UPnP ni NAT-PMP: Vigía no puede leer sus redirecciones.</string>
+    <string name="security_router_modem_unavailable">El módem de esta red (%1$s) no contesta UPnP ni NAT-PMP.</string>
+
+    <string name="security_mappings_title">Redirecciones</string>
+    <string name="security_mappings_empty">El router no tiene redirecciones de puertos activas.</string>
+    <string name="security_mapping_route">%1$s → %2$s</string>
+    <string name="security_mapping_since">Desde %1$s</string>
+    <string name="security_mapping_source_upnp">Pedida por UPnP</string>
+    <string name="security_mapping_source_probe">Detectada al escanear</string>
+
+    <string name="security_outer_ring_title">Red exterior</string>
+    <string name="security_outer_ring_empty">Todavía no se escaneó la red exterior.</string>
+
+    <string name="security_from_here_title">Tu router visto desde aquí</string>
+    <string name="security_from_here_hint">Estás conectado a la red de delante de tu router (la de la fibra): esto es lo que se ve desde aquí, igual que lo vería cualquier otro equipo de esa red.</string>
+    <string name="security_from_here_no_ports">No se encontraron puertos abiertos en el último escaneo de esta red.</string>
+    <string name="security_from_here_need_scan">Escanea esta red para ver qué puertos del router quedan visibles desde aquí.</string>
+    <string name="security_from_here_scan_now">Escanear red</string>
+    <string name="security_from_here_scan_all_ports">Escaneo completo de puertos</string>
+    <string name="security_from_here_scanning">Escaneando…</string>
+
+    <string name="security_empty_no_data_title">Todavía no hay nada que mostrar</string>
+    <string name="security_empty_no_data_subtitle">Escanea tu red o vincula el agente (Panel → Vigilancia 24/7) para ver el informe de seguridad.</string>
+    <string name="security_empty_agent_unreachable_title">No se pudo conectar con el agente</string>
+    <string name="security_empty_agent_unreachable_subtitle">Vigía no pudo pedir el informe de seguridad. Revisa que el agente esté prendido y en la misma red.</string>
+
+    <!-- Pantalla Internet (ver docs/agente-api.md § "Internet v1.4") -->
+    <string name="internet_title">Internet</string>
+
+    <string name="internet_state_up_title">Funcionando bien</string>
+    <string name="internet_state_degraded_title">Lento</string>
+    <string name="internet_state_down_title">Sin internet</string>
+    <string name="internet_state_unknown_title">Sin datos todavía</string>
+    <string name="internet_since_label">Así desde %1$s</string>
+
+    <string name="internet_hop_router">Tu router</string>
+    <string name="internet_hop_modem">El módem</string>
+    <string name="internet_hop_internet">Internet</string>
+    <string name="internet_hop_dns">DNS</string>
+    <string name="internet_ms_format">%1$s ms</string>
+    <string name="internet_no_data">Sin dato</string>
+    <string name="internet_loss_label">Pérdida %1$d%%</string>
+
+    <string name="internet_graph_title">Latencia</string>
+    <string name="internet_range_24h">24 h</string>
+    <string name="internet_range_7d">7 días</string>
+    <string name="internet_graph_empty">Todavía no hay suficientes mediciones para dibujar la gráfica.</string>
+
+    <string name="internet_outages_title">Caídas</string>
+    <string name="internet_outages_empty">Sin caídas registradas en los últimos 30 días.</string>
+
+    <string name="internet_speed_title">Velocidad</string>
+    <string name="internet_speed_down">Bajada</string>
+    <string name="internet_speed_up">Subida</string>
+    <string name="internet_speed_latency_idle">Latencia en reposo</string>
+    <string name="internet_speed_latency_loaded">Latencia con carga</string>
+    <string name="internet_speed_history_title">Historial</string>
+    <string name="internet_speed_test_now">Probar ahora</string>
+    <string name="internet_speed_testing">Midiendo…</string>
+    <string name="internet_speed_test_already_running">Ya hay una prueba corriendo</string>
+    <string name="internet_speed_test_error">La prueba de velocidad falló: %1$s</string>
+    <string name="internet_speed_tests_per_day_label">Pruebas automáticas al día</string>
+    <string name="internet_speed_none">Todavía no hay ninguna prueba de velocidad.</string>
+    <string name="internet_mbps_format">%1$s Mbps</string>
+
+    <string name="internet_ipv6_title">IPv6</string>
+    <string name="internet_ipv6_broken_note">Tu router reparte IPv6 pero no sale a internet; algunas apps pueden tardar más en conectar. Se arregla desactivando IPv6 en el router.</string>
+
+    <string name="internet_empty_not_linked_title">Todavía no hay nada que mostrar</string>
+    <string name="internet_empty_not_linked_subtitle">La medición de internet la hace el agente de casa. Vincúlalo desde el Panel → Vigilancia 24/7 para ver aquí el estado.</string>
+    <string name="internet_empty_not_monitoring_title">El agente no vigila esta red</string>
+    <string name="internet_empty_not_monitoring_subtitle">Conéctate a la red que vigila tu agente para ver el estado de internet.</string>
+
+    <!-- Fila "Internet" de la tarjeta "Vigilancia 24/7" del Panel -->
+    <string name="internet_panel_state_up">bien</string>
+    <string name="internet_panel_state_degraded">lento</string>
+    <string name="internet_panel_state_down">sin internet</string>
+    <string name="internet_panel_state_unknown">sin datos</string>
+    <string name="internet_panel_row_latency">Internet · %1$s ms · %2$s</string>
+    <string name="internet_panel_row_plain">Internet · %1$s</string>
+
+    <!-- "Buscar señal" (fase 6, ver docs/plan.md): botón compartido entre la pestaña Wi-Fi y la pestaña Bluetooth -->
+    <string name="radar_search_button">Buscar</string>
+
+    <!-- Pestaña Bluetooth -->
+    <string name="bluetooth_title">Bluetooth</string>
+    <string name="bluetooth_permission_explanation">Para ver los equipos Bluetooth cercanos, Android exige este permiso.</string>
+    <string name="bluetooth_radio_off_title">Activa el Bluetooth</string>
+    <string name="bluetooth_radio_off_subtitle">Vigía necesita el Bluetooth encendido para buscar equipos cercanos.</string>
+    <string name="bluetooth_empty">No se detectan equipos Bluetooth cerca.</string>
+    <string name="bluetooth_no_name">Sin nombre</string>
+    <string name="bluetooth_only_named">Solo con nombre</string>
+    <string name="bluetooth_random_address">Dirección aleatoria</string>
+    <string name="bluetooth_sibling_match">Parece ser tu %1$s</string>
+
+    <!-- Pantalla "Buscar señal" (fase 6) -->
+    <string name="hunt_title">Buscar señal</string>
+    <string name="hunt_type_wifi">Punto de acceso Wi-Fi</string>
+    <string name="hunt_type_bluetooth">Equipo Bluetooth</string>
+    <string name="hunt_rtt_chip">RTT</string>
+    <string name="hunt_detector_title">Detector</string>
+    <string name="hunt_trend_closer">Acercándote</string>
+    <string name="hunt_trend_farther">Alejándote</string>
+    <string name="hunt_trend_steady">Estable</string>
+    <string name="hunt_distance_measured">%1$s m (medida)</string>
+    <string name="hunt_sound_label">Sonido</string>
+    <string name="hunt_vibration_label">Vibración</string>
+    <string name="hunt_radar_title">Radar</string>
+    <string name="hunt_guided_turn_button">Vuelta guiada</string>
+    <string name="hunt_guided_turn_instruction">Sostén el teléfono frente a tu pecho y gira despacio una vuelta completa.</string>
+    <string name="hunt_turn_ahead">Está justo enfrente</string>
+    <string name="hunt_turn_behind">Está a tu espalda</string>
+    <string name="hunt_turn_right">Gira ~%1$d° a tu derecha</string>
+    <string name="hunt_turn_left">Gira ~%1$d° a tu izquierda</string>
+    <string name="hunt_bearing_confidence_high">Confianza alta</string>
+    <string name="hunt_bearing_confidence_medium">Confianza media</string>
+    <string name="hunt_bearing_confidence_inconclusive">No concluyente: intenta otra vez más despacio.</string>
+    <string name="hunt_warning_slow_throttled">Los escaneos de Wi-Fi van lentos. Para que vayan más rápido: Opciones de desarrollador → Limitación de búsqueda de Wi-Fi → desactívala.</string>
+    <string name="hunt_warning_no_permission_wifi">Vigía necesita el permiso de ubicación para escanear Wi-Fi.</string>
+    <string name="hunt_warning_no_permission_bluetooth">Vigía necesita el permiso de Bluetooth para buscar este equipo.</string>
+    <string name="hunt_warning_radio_off_wifi">Enciende el Wi-Fi para buscar esta señal.</string>
+    <string name="hunt_warning_radio_off_bluetooth">Enciende el Bluetooth para buscar este equipo.</string>
+    <string name="hunt_warning_not_found">No se detecta la señal. Acércate o revisa que esté encendido.</string>
+
+    <!-- Widget de pantalla de inicio (fase 8, ver docs/plan.md y ui/widget/VigiaWidget.kt) -->
+    <string name="widget_title">Vigía</string>
+    <string name="widget_not_linked">Vincula el agente para ver tu red</string>
+    <string name="widget_devices_label">%1$d equipos en línea</string>
+    <string name="widget_devices_short">%1$d equipos</string>
+    <string name="widget_alerts_label">%1$d alertas sin leer</string>
+    <string name="widget_alerts_short">%1$d</string>
+    <string name="widget_internet_with_latency">%1$s · %2$d ms</string>
+    <string name="widget_internet_ms_short">%1$d ms</string>
+    <string name="widget_internet_none">sin internet</string>
+    <string name="widget_never_updated">sin actualizar</string>
+
+    <!-- Accesibilidad (TalkBack): descripciones de contenido, estados en texto y
+         textos que antes vivían sueltos en el código (ver AGENTS.md, rama
+         feature/accesibilidad). "a11y_" para lo genérico de más de una pantalla. -->
+    <string name="a11y_back">Volver</string>
+    <string name="a11y_more_options">Más opciones</string>
+    <string name="common_and_more">… y %1$d más</string>
+
+    <!-- Dispositivos: estado de la fila, sin el "(%d)" del encabezado de sección -->
+    <string name="devices_state_online">En línea</string>
+    <string name="devices_state_offline">Sin conexión</string>
+    <string name="devices_port_risky">Puerto de riesgo</string>
+
+    <!-- Radar del Panel (ver ui/panel/RadarView.kt): descripción resumida, no punto por punto -->
+    <string name="radar_description_scanning">Radar, escaneando</string>
+    <plurals name="radar_description_devices">
+        <item quantity="zero">Radar, sin equipos detectados</item>
+        <item quantity="one">Radar, %1$d equipo detectado</item>
+        <item quantity="other">Radar, %1$d equipos detectados</item>
+    </plurals>
+
+    <!-- Panel: resumen Wi-Fi (antes "Banda"/"Velocidad" sueltos en el código) -->
+    <string name="panel_network_band_label">Banda</string>
+    <string name="panel_network_band_value">%1$s · canal %2$d</string>
+    <string name="panel_network_speed_label">Velocidad</string>
+    <string name="panel_network_speed_value">%1$d Mbps</string>
+
+    <!-- Internet: descripción de la gráfica de latencia, según el rango que se está viendo -->
+    <string name="internet_graph_description_24h">Gráfica de latencia de las últimas 24 horas: mínimo %1$s ms, máximo %2$s ms</string>
+    <string name="internet_graph_description_7d">Gráfica de latencia de los últimos 7 días: mínimo %1$s ms, máximo %2$s ms</string>
+    <string name="internet_speed_tests_decrease">Reducir pruebas de velocidad al día</string>
+    <string name="internet_speed_tests_increase">Aumentar pruebas de velocidad al día</string>
+
+    <!-- Seguridad: estado de expandir/contraer "Qué hacer" -->
+    <string name="security_finding_action_expanded">Expandido</string>
+    <string name="security_finding_action_collapsed">Contraído</string>
+    <plurals name="security_outer_ring_count_plural">
+        <item quantity="one">%1$d equipo en la red de delante de tu router</item>
+        <item quantity="other">%1$d equipos en la red de delante de tu router</item>
+    </plurals>
+
+    <!-- Wi-Fi -->
+    <string name="wifi_error_prefix">Error: %1$s</string>
+    <string name="wifi_wps_badge_action">Ver qué es WPS</string>
+    <string name="wifi_channel_band_summary">%1$s: %2$d redes detectadas</string>
+    <string name="wifi_channel_band_summary_connected">%1$s: %2$d redes detectadas, la tuya en el canal %3$d</string>
+
+    <!-- Alertas -->
+    <string name="alerts_unread_state">Sin leer</string>
+
+    <!-- Detalle de dispositivo -->
+    <string name="detail_full_scan_error">Error: %1$s</string>
+    <string name="detail_scan_all_ports_remote_disabled">El escaneo completo de puertos solo está disponible conectado a la red local.</string>
+
+    <!-- Errores y notificaciones del sistema -->
+    <string name="error_unknown">Error desconocido</string>
+    <string name="scan_error_no_network">Conéctate a una red Wi-Fi (o por cable) para escanear.</string>
+    <string name="port_scan_channel_name">Escaneos de puertos</string>
+    <string name="port_scan_notification_title">Escaneando puertos</string>
+    <string name="port_scan_error_interrupted">Se interrumpió; vuelve a intentarlo.</string>
+
+    <!-- Resumen de canal Wi-Fi -->
+    <string name="wifi_channel_summary">%1$s · canal %2$d · %3$s</string>
+    <string name="wifi_channel_summary_with_center">%1$s · canal %2$d · centro %3$d · %4$s</string>
+
+    <!-- Fuentes y tipos de equipo -->
+    <string name="device_source_arp">tabla ARP</string>
+    <string name="device_source_ndp">vecinos IPv6</string>
+    <string name="device_source_api">API del equipo</string>
+    <string name="device_source_self">este teléfono</string>
+
+    <string name="device_type_phone">Teléfono</string>
+    <string name="device_type_computer">Computadora</string>
+    <string name="device_type_tv">TV</string>
+    <string name="device_type_router">Router</string>
+    <string name="device_type_printer">Impresora</string>
+    <string name="device_type_camera">Cámara</string>
+    <string name="device_type_speaker">Bocina</string>
+    <string name="device_type_console">Consola</string>
+    <string name="device_type_nas">NAS</string>
+    <string name="device_type_iot">Inteligente</string>
+    <string name="device_type_wearable">Reloj</string>
+    <string name="device_type_tablet">Tablet</string>
+    <string name="device_type_unknown">Sin identificar</string>
+
+    <!-- Categorías del catálogo de equipos -->
+    <string name="device_cat_mobile">Móviles</string>
+    <string name="device_cat_computers">Computadoras</string>
+    <string name="device_cat_av">Audio y video</string>
+    <string name="device_cat_smart_home">Hogar inteligente</string>
+    <string name="device_cat_security">Seguridad</string>
+    <string name="device_cat_network">Redes</string>
+    <string name="device_cat_office">Oficina</string>
+    <string name="device_cat_other">Otro</string>
+
+    <!-- Tipos del catálogo de equipos -->
+    <string name="device_catalog_phone">Teléfono</string>
+    <string name="device_catalog_tablet">Tablet</string>
+    <string name="device_catalog_watch">Reloj</string>
+    <string name="device_catalog_ereader">Lector</string>
+    <string name="device_catalog_car">Auto</string>
+    <string name="device_catalog_laptop">Laptop</string>
+    <string name="device_catalog_desktop">Escritorio</string>
+    <string name="device_catalog_server">Servidor</string>
+    <string name="device_catalog_raspberry_pi">Raspberry Pi</string>
+    <string name="device_catalog_tv">TV</string>
+    <string name="device_catalog_streaming_dongle">Dongle de streaming</string>
+    <string name="device_catalog_smart_speaker">Bocina inteligente</string>
+    <string name="device_catalog_soundbar">Barra de sonido</string>
+    <string name="device_catalog_console">Consola</string>
+    <string name="device_catalog_projector">Proyector</string>
+    <string name="device_catalog_smart_bulb">Foco</string>
+    <string name="device_catalog_led_strip">Tira LED</string>
+    <string name="device_catalog_smart_plug">Enchufe</string>
+    <string name="device_catalog_smart_switch">Interruptor</string>
+    <string name="device_catalog_sensor">Sensor</string>
+    <string name="device_catalog_hub">Hub</string>
+    <string name="device_catalog_thermostat">Termostato</string>
+    <string name="device_catalog_vacuum">Aspiradora</string>
+    <string name="device_catalog_appliance">Electrodoméstico</string>
+    <string name="device_catalog_ac">Aire acondicionado</string>
+    <string name="device_catalog_camera">Cámara</string>
+    <string name="device_catalog_doorbell">Timbre</string>
+    <string name="device_catalog_nvr">NVR</string>
+    <string name="device_catalog_alarm">Alarma</string>
+    <string name="device_catalog_router">Router</string>
+    <string name="device_catalog_mesh_repeater">Repetidor/mesh</string>
+    <string name="device_catalog_switch">Switch</string>
+    <string name="device_catalog_access_point">Punto de acceso</string>
+    <string name="device_catalog_printer">Impresora</string>
+    <string name="device_catalog_nas">NAS</string>
+    <string name="device_catalog_scanner">Escáner</string>
+    <string name="device_catalog_other">Otro</string>
+
+    <!-- Sugerencias de ubicación -->
+    <string name="location_living_room">Sala</string>
+    <string name="location_bedroom">Recámara</string>
+    <string name="location_kitchen">Cocina</string>
+    <string name="location_office">Estudio</string>
+    <string name="location_garden">Jardín</string>
+    <string name="location_garage">Cochera</string>
+
+    <!-- Catálogo de puertos -->
+    <string name="port_name_generic">Puerto %1$d</string>
+    <string name="port_name_515">Impresora (LPD)</string>
+    <string name="port_name_631">IPP (impresora)</string>
+    <string name="port_name_8001">Control de TV Samsung</string>
+    <string name="port_name_8060">Control de Roku</string>
+    <string name="port_name_9100">Impresora (RAW)</string>
+    <string name="port_name_62078">Sincronización iPhone</string>
+    <string name="port_risk_21">Transferencia de archivos sin cifrar</string>
+    <string name="port_risk_23">Acceso remoto sin cifrar</string>
+    <string name="port_risk_139">Compartir archivos antiguo de Windows</string>
+    <string name="port_risk_445">Compartir archivos de Windows, blanco frecuente de ataques</string>
+    <string name="port_risk_554">Stream de cámara, a veces sin autenticación</string>
+    <string name="port_risk_3389">Escritorio remoto, blanco frecuente de fuerza bruta</string>
+    <string name="port_risk_5900">Escritorio remoto, a veces sin contraseña</string>
+
+    <!-- Formato de caídas de internet -->
+    <string name="internet_outage_ongoing">en curso</string>
+    <string name="internet_outage_less_than_min">menos de 1 min</string>
+    <string name="internet_outage_minutes">%1$d min</string>
+    <string name="internet_outage_hours">%1$d h</string>
+    <string name="internet_outage_hours_minutes">%1$d h %2$d min</string>
+    <string name="internet_blame_lan">Tu router</string>
+    <string name="internet_blame_modem">El módem</string>
+    <string name="internet_blame_isp">Tu proveedor</string>
+    <string name="internet_blame_unknown">No se sabe</string>
+</resources>

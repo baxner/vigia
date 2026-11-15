@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tema base de la Activity (plataforma, sin dependencias de Material
+         Components): el theming real de Material 3 + color dinámico vive en
+         Kotlin, en ui/theme/Theme.kt, con Jetpack Compose. -->
+    <style name="Theme.Vigia" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/ic_launcher_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+</resources>

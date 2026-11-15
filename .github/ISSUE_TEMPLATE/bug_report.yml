@@ -1,0 +1,57 @@
+name: Reportar un bug
+description: Informa de un error en el motor Go, el Agente 24/7 o las apps móviles
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por reportar un problema.
+        **Aviso de privacidad:** antes de pegar registros o capturas, elimina direcciones MAC reales, IPs públicas, tokens Bearer, llaves privadas o nombres personales.
+        Si encontraste una vulnerabilidad de seguridad, **no abras un issue público**: sigue [`SECURITY.md`](../../SECURITY.md).
+
+  - type: dropdown
+    id: component
+    attributes:
+      label: Componente afectado
+      options:
+        - Motor Go (core/ o mobile/)
+        - Agente 24/7 (cmd/vigia-agent o Docker/systemd)
+        - App Android
+        - App iOS (iPhone)
+        - Documentación
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: Sistema operativo / Dispositivo
+      placeholder: "Ej.: Raspberry Pi OS (ARM64), macOS 15, Docker Linux, Android 15, iOS 18"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Descripción del error
+      description: Explica qué ocurrió y qué esperabas que sucediera.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Pasos para reproducir
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Registros o salida relevante (anonimizados)
+      render: shell

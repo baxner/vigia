@@ -1,0 +1,75 @@
+port	name	risk	why	action
+21	FTP	medium	Transfiere archivos y contraseñas sin cifrar: cualquiera en tu red puede leerlos.	Si no lo usas, desactívalo en ese equipo; si lo necesitas, usa SFTP (por SSH).
+22	SSH	low	Permite entrar a la terminal del equipo; es seguro solo con una contraseña fuerte o con llaves.	Usa una contraseña fuerte o llaves SSH, y apágalo si no entras por ahí.
+23	Telnet	high	Da acceso a la terminal del equipo sin cifrar: la contraseña viaja a la vista de cualquiera en tu red.	Desactívalo; si el aparato no lo permite, cambia su contraseña de fábrica y actualízalo.
+25	SMTP	low	Es un servidor de correo, algo raro en un equipo de casa.	Si no sabes por qué ese equipo envía correo, revisa qué programa abrió el puerto.
+53	DNS	none		
+80	HTTP	low	Es un panel web sin cifrar: lo que escribas ahí, contraseñas incluidas, viaja a la vista en tu red.	Cambia la contraseña de fábrica del equipo y, si lo permite, entra por HTTPS.
+81	HTTP alt.	low	Panel web sin cifrar en un puerto alterno, común en cámaras y grabadores.	Cambia la contraseña de fábrica y mantén el equipo actualizado.
+110	POP3	low	Servidor de correo sin cifrar, algo raro en un equipo de casa.	Si no sabes qué programa lo abrió, revísalo o desactívalo.
+111	rpcbind	medium	Anuncia servicios de Linux como NFS; suele ser la puerta a carpetas compartidas.	Si ese equipo no comparte carpetas por NFS, desactiva rpcbind.
+135	RPC de Windows	low	Lo abre Windows para administrarse en red; es normal, pero es blanco habitual de gusanos.	Mantén Windows actualizado y su firewall encendido.
+139	NetBIOS	medium	Comparte archivos e impresoras al estilo del Windows antiguo y revela el nombre del equipo y sus carpetas.	Si no compartes carpetas, desactiva el uso compartido de archivos e impresoras.
+143	IMAP	low	Servidor de correo sin cifrar, algo raro en un equipo de casa.	Si no sabes qué programa lo abrió, revísalo o desactívalo.
+389	LDAP	medium	Directorio de usuarios sin cifrar; en una casa casi nunca hace falta.	Si no administras un directorio de usuarios, desactívalo en ese equipo.
+443	HTTPS	none		
+445	SMB	medium	Comparte archivos de Windows y es el blanco favorito de los virus que se propagan por la red.	Si no compartes carpetas desde ese equipo, desactiva el uso compartido; si sí, ponles contraseña.
+465	SMTP (cifrado)	none		
+515	Impresora (LPD)	low	Cualquiera en tu red puede mandar trabajos de impresión.	Es normal en impresoras; si no imprimes por red, desactiva LPD en su panel.
+548	AFP (Mac)	low	Comparte archivos de una Mac.	Usa contraseñas fuertes en las cuentas que comparten o apaga Compartir archivos si no lo usas.
+554	RTSP	medium	Es el video de una cámara; muchas lo entregan sin contraseña a cualquiera en tu red.	En la configuración de la cámara, pon contraseña al video y cambia la de fábrica.
+587	SMTP (envío)	none		
+631	IPP (impresora)	low	Impresión y panel por red; algunas impresoras dejan cambiar su configuración sin contraseña.	Ponle contraseña de administrador a la impresora.
+636	LDAP (cifrado)	none		
+873	rsync	medium	Sincroniza carpetas; sin contraseña, cualquiera en tu red puede copiarlas.	Ponle usuario y contraseña al módulo de rsync o úsalo solo por SSH.
+993	IMAP (cifrado)	none		
+995	POP3 (cifrado)	none		
+1080	Proxy SOCKS	medium	Es un proxy: deja que otros salgan a internet a través de ese equipo, y a veces lo abre un programa malicioso.	Si no instalaste un proxy en ese equipo, revisa qué programa abrió el puerto.
+1194	OpenVPN	none		
+1433	SQL Server	medium	Base de datos de Microsoft; con la contraseña de fábrica, cualquiera en tu red puede leerla.	Si solo la usa ese equipo, desactiva el acceso por red; si no, usa una contraseña fuerte.
+1723	VPN PPTP	high	VPN antigua con un cifrado que ya se considera roto.	Cámbiala por WireGuard u OpenVPN.
+1883	MQTT	medium	Mensajes de equipos inteligentes sin cifrar; sin contraseña, cualquiera puede leerlos o mandar órdenes.	Ponle usuario y contraseña al servidor MQTT, o usa el puerto cifrado (8883).
+1900	UPnP	none		
+2049	NFS	medium	Carpetas compartidas de Linux o de un NAS, que suelen confiar en cualquier equipo de la red.	Limita las carpetas compartidas a las IP de tus equipos, o desactiva NFS si no lo usas.
+3000	Panel web	low	Panel o servidor de desarrollo (Grafana, Node y similares).	Protégelo con contraseña o apágalo cuando no lo uses.
+3306	MySQL	medium	Base de datos; con una contraseña débil, cualquiera en tu red puede leerla.	Si solo la usa ese equipo, haz que escuche solo en sí mismo (127.0.0.1).
+3389	RDP	medium	Escritorio remoto de Windows: con una contraseña débil, alguien en tu red puede tomar el control del equipo.	Si no lo usas, desactiva Escritorio remoto; si sí, usa una contraseña fuerte.
+3689	iTunes/DAAP	none		
+5000	UPnP/HTTP	low	Panel web o servicio UPnP, por ejemplo de un NAS o del receptor AirPlay de una Mac.	Si es un panel, protégelo con una contraseña fuerte.
+5001	HTTPS alt. (NAS)	low	Panel web cifrado, típico de un NAS.	Protégelo con una contraseña fuerte y mantenlo actualizado.
+5040	Windows (CDP)	none		
+5353	mDNS	none		
+5357	WSD (Windows)	none		
+5432	PostgreSQL	medium	Base de datos; con una contraseña débil, cualquiera en tu red puede leerla.	Si solo la usa ese equipo, haz que escuche solo en sí mismo (127.0.0.1).
+5555	ADB inalámbrico	high	Depuración de Android abierta: da control total del teléfono o de la TV a quien se conecte.	Apaga la depuración en Opciones de desarrollador cuando no la uses.
+5900	VNC	high	Control remoto de la pantalla; muchos lo dejan sin contraseña o con una muy corta.	Si no lo usas, apágalo (en Mac: Compartir pantalla); si sí, pon una contraseña fuerte.
+6379	Redis	high	Base de datos que por defecto no pide contraseña: cualquiera en tu red puede leerla o borrarla.	Haz que escuche solo en ese equipo (127.0.0.1) o ponle contraseña.
+6668	Tuya (control local)	none		
+7000	AirPlay	none		
+7680	Windows Update (P2P)	none		
+8000	HTTP alt.	low	Panel web sin cifrar en un puerto alterno.	Cambia la contraseña de fábrica del equipo.
+8001	Control de TV Samsung	low	Permite controlar la TV desde la red; la TV pide aprobar cada control nuevo.	Si la TV te pide aprobar un control que no reconoces, recházalo.
+8008	Chromecast	none		
+8009	Chromecast	none		
+8060	Control de Roku	low	Cualquiera en tu red puede controlar el Roku sin contraseña.	En el Roku, en Configuración avanzada del sistema › Control por apps móviles, limita el acceso por red.
+8080	HTTP alt.	low	Panel web sin cifrar en un puerto alterno, muy común en aplicaciones.	Protégelo con una contraseña fuerte o entra por HTTPS si lo permite.
+8081	HTTP alt.	low	Panel web sin cifrar en un puerto alterno.	Protégelo con una contraseña fuerte o entra por HTTPS si lo permite.
+8123	Home Assistant	low	Panel de Home Assistant; pide usuario y contraseña.	Usa una contraseña fuerte y mantenlo actualizado.
+8443	HTTPS alt.	none		
+8554	RTSP alt.	medium	Es el video de una cámara; muchas lo entregan sin contraseña a cualquiera en tu red.	En la configuración de la cámara, pon contraseña al video y cambia la de fábrica.
+8883	MQTT (cifrado)	none		
+8888	HTTP alt.	low	Panel web sin cifrar, común en herramientas de desarrollo.	Protégelo con contraseña o apágalo cuando no lo uses.
+8899	ONVIF	medium	Control de cámaras (moverlas, configurarlas); muchas lo aceptan con la contraseña de fábrica.	Cambia la contraseña de fábrica de la cámara y desactiva ONVIF si ningún programa lo usa.
+9000	HTTP alt.	low	Panel web en un puerto alterno, muy común en aplicaciones.	Protégelo con una contraseña fuerte.
+9090	HTTP alt.	low	Panel web en un puerto alterno, usado por herramientas de monitoreo.	Protégelo con una contraseña fuerte.
+9100	Impresora (RAW)	low	Cualquiera en tu red puede mandar a imprimir.	Es normal en impresoras de red; si no imprimes por red, desactívalo en su panel.
+9200	Elasticsearch	medium	Buscador de datos que en versiones viejas no pide contraseña.	Actualízalo y activa su seguridad (usuario y contraseña).
+9443	HTTPS alt.	none		
+10000	Webmin	medium	Panel que administra todo el servidor.	Si no lo usas, desinstálalo; si sí, contraseña fuerte y siempre actualizado.
+27017	MongoDB	high	Base de datos que en versiones viejas no pide contraseña: cualquiera en tu red puede leerla o borrarla.	Haz que escuche solo en ese equipo (127.0.0.1) o activa su autenticación.
+32400	Plex	none		
+49152	UPnP	none		
+49153	UPnP	none		
+49154	UPnP	none		
+49155	UPnP	none		
+62078	Sincronización iPhone	none		

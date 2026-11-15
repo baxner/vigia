@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  TLS obligatorio para toda la app (`cleartextTrafficPermitted="false"`): el
+  agente sirve HTTPS en 7341 con certificado autofirmado fijado por huella
+  (ver AgentTls.kt).
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="false" />
+</network-security-config>

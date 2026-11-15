@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Primer plano del adaptive icon de Vigía, motivo "Radar Nocturno": anillos
+     concéntricos, retícula, una cuña de barrido y los puntos de equipos
+     detectados, todo en la paleta del tema (cian/azul/ámbar). Sin logos de
+     marca: solo el radar, igual que el héroe del Panel. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Anillos concéntricos. -->
+    <path
+        android:pathData="M54,21 A33,33 0 1,1 53.99,21"
+        android:strokeColor="#34E3C2"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.8"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M54,32 A22,22 0 1,1 53.99,32"
+        android:strokeColor="#34E3C2"
+        android:strokeWidth="1.6"
+        android:strokeAlpha="0.5"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M54,43 A11,11 0 1,1 53.99,43"
+        android:strokeColor="#34E3C2"
+        android:strokeWidth="1.4"
+        android:strokeAlpha="0.38"
+        android:fillColor="#00000000" />
+
+    <!-- Retícula. -->
+    <path
+        android:pathData="M21,54 L87,54"
+        android:strokeColor="#34E3C2"
+        android:strokeWidth="1"
+        android:strokeAlpha="0.22"
+        android:fillColor="#00000000" />
+    <path
+        android:pathData="M54,21 L54,87"
+        android:strokeColor="#34E3C2"
+        android:strokeWidth="1"
+        android:strokeAlpha="0.22"
+        android:fillColor="#00000000" />
+
+    <!-- Cuña de barrido, desde el centro hacia las 12 en punto. -->
+    <path
+        android:pathData="M54,54 L54,21 A33,33 0 0,1 79.28,32.78 Z"
+        android:fillColor="#34E3C2"
+        android:fillAlpha="0.24" />
+    <path
+        android:pathData="M54,54 L79.28,32.78"
+        android:strokeColor="#8FF2E3"
+        android:strokeWidth="2.4"
+        android:strokeAlpha="0.9"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000" />
+
+    <!-- Centro. -->
+    <path
+        android:pathData="M54,54 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"
+        android:fillColor="#34E3C2" />
+
+    <!-- Equipos detectados. -->
+    <path
+        android:pathData="M72,66 m-2.6,0 a2.6,2.6 0 1,0 5.2,0 a2.6,2.6 0 1,0 -5.2,0"
+        android:fillColor="#4C8DFF" />
+    <path
+        android:pathData="M38,34 m-2.2,0 a2.2,2.2 0 1,0 4.4,0 a2.2,2.2 0 1,0 -4.4,0"
+        android:fillColor="#FFB547" />
+</vector>

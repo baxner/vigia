@@ -1,0 +1,23 @@
+[Unit]
+Description=Vigia Agent (Monitor de red local 24/7)
+Documentation=https://github.com/baxner/vigia
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/vigia-agent run -data /var/lib/vigia -bind :7341
+Restart=on-failure
+RestartSec=5s
+Nice=10
+AmbientCapabilities=CAP_NET_RAW
+CapabilityBoundingSet=CAP_NET_RAW
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+StateDirectory=vigia
+ReadWritePaths=/var/lib/vigia
+
+[Install]
+WantedBy=multi-user.target

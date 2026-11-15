@@ -1,0 +1,16 @@
+.git
+.github
+.claude
+.vscode
+.idea
+android
+ios
+docs
+bin
+*.db
+*.db-wal
+*.db-shm
+*.aar
+*.xcframework
+*.log
+cmd/vigia-agent/.devdata

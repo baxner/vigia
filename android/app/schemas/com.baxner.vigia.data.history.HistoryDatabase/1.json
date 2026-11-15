@@ -1,0 +1,268 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "cd28aa9c9c2918df8ee585642877dcd7",
+    "entities": [
+      {
+        "tableName": "networks",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`key` TEXT NOT NULL, `firstSeen` INTEGER NOT NULL, `lastSeen` INTEGER NOT NULL, PRIMARY KEY(`key`))",
+        "fields": [
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstSeen",
+            "columnName": "firstSeen",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSeen",
+            "columnName": "lastSeen",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "key"
+          ]
+        }
+      },
+      {
+        "tableName": "devices",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `networkKey` TEXT NOT NULL, `mac` TEXT, `lastIp` TEXT NOT NULL, `ssdpUdn` TEXT, `strongName` TEXT, `firstSeen` INTEGER NOT NULL, `lastSeen` INTEGER NOT NULL, `online` INTEGER NOT NULL, `onlineSince` INTEGER, `offlineMisses` INTEGER NOT NULL, `lastDeviceJson` TEXT NOT NULL, `custom_name` TEXT, `custom_typeId` TEXT, `custom_notes` TEXT, `custom_location` TEXT, `custom_important` INTEGER NOT NULL, FOREIGN KEY(`networkKey`) REFERENCES `networks`(`key`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "networkKey",
+            "columnName": "networkKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mac",
+            "columnName": "mac",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastIp",
+            "columnName": "lastIp",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ssdpUdn",
+            "columnName": "ssdpUdn",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "strongName",
+            "columnName": "strongName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "firstSeen",
+            "columnName": "firstSeen",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastSeen",
+            "columnName": "lastSeen",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "online",
+            "columnName": "online",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "onlineSince",
+            "columnName": "onlineSince",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "offlineMisses",
+            "columnName": "offlineMisses",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastDeviceJson",
+            "columnName": "lastDeviceJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "custom.name",
+            "columnName": "custom_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "custom.typeId",
+            "columnName": "custom_typeId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "custom.notes",
+            "columnName": "custom_notes",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "custom.location",
+            "columnName": "custom_location",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "custom.important",
+            "columnName": "custom_important",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_devices_networkKey",
+            "unique": false,
+            "columnNames": [
+              "networkKey"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_devices_networkKey` ON `${TABLE_NAME}` (`networkKey`)"
+          },
+          {
+            "name": "index_devices_networkKey_mac",
+            "unique": false,
+            "columnNames": [
+              "networkKey",
+              "mac"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_devices_networkKey_mac` ON `${TABLE_NAME}` (`networkKey`, `mac`)"
+          },
+          {
+            "name": "index_devices_networkKey_ssdpUdn",
+            "unique": false,
+            "columnNames": [
+              "networkKey",
+              "ssdpUdn"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_devices_networkKey_ssdpUdn` ON `${TABLE_NAME}` (`networkKey`, `ssdpUdn`)"
+          },
+          {
+            "name": "index_devices_networkKey_strongName",
+            "unique": false,
+            "columnNames": [
+              "networkKey",
+              "strongName"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_devices_networkKey_strongName` ON `${TABLE_NAME}` (`networkKey`, `strongName`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "networks",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "networkKey"
+            ],
+            "referencedColumns": [
+              "key"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "device_events",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `deviceId` INTEGER NOT NULL, `type` TEXT NOT NULL, `at` INTEGER NOT NULL, `detail` TEXT, FOREIGN KEY(`deviceId`) REFERENCES `devices`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deviceId",
+            "columnName": "deviceId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "at",
+            "columnName": "at",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "detail",
+            "columnName": "detail",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_device_events_deviceId",
+            "unique": false,
+            "columnNames": [
+              "deviceId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_device_events_deviceId` ON `${TABLE_NAME}` (`deviceId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "devices",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "deviceId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'cd28aa9c9c2918df8ee585642877dcd7')"
+    ]
+  }
+}

@@ -1,0 +1,306 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  go-test:
+    name: Go vet & test (-race)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Go vet (Linux y compilación cruzada)
+        run: |
+          go vet ./...
+          GOOS=darwin go vet ./...
+          GOOS=windows go vet ./...
+
+      - name: Go test with race detector
+        run: go test -race ./...
+
+      - name: Build CLI binaries
+        run: |
+          go build -o /tmp/vigia-agent ./cmd/vigia-agent
+          go build -o /tmp/vigia-scan ./cmd/vigia-scan
+          GOOS=linux GOARCH=arm64 go build -o /tmp/vigia-agent-arm64 ./cmd/vigia-agent
+
+  format-and-syntax:
+    name: Format & syntax checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      - name: Check Go formatting (gofmt -s)
+        run: |
+          unformatted="$(gofmt -s -l .)"
+          if [ -n "$unformatted" ]; then
+            echo "Archivos sin formato correcto (ejecuta 'gofmt -s -w .'):"
+            echo "$unformatted"
+            exit 1
+          fi
+
+      - name: Check shell scripts syntax
+        run: |
+          for f in scripts/*.sh; do
+            [ -f "$f" ] || continue
+            sh -n "$f"
+          done
+
+      - name: Validate JSON, YAML and XML files
+        run: |
+          python3 - <<'PY'
+          import json, pathlib, sys, xml.etree.ElementTree as ET
+
+          errors = []
+          for p in pathlib.Path(".").rglob("*.json"):
+              if any(part in {".git", "build", ".gradle", "DerivedData"} for part in p.parts):
+                  continue
+              try:
+                  json.loads(p.read_text(encoding="utf-8"))
+              except Exception as e:
+                  errors.append(f"JSON inválido en {p}: {e}")
+
+          for p in pathlib.Path(".").rglob("*.xml"):
+              if any(part in {".git", "build", ".gradle", "DerivedData"} for part in p.parts):
+                  continue
+              try:
+                  ET.parse(p)
+              except Exception as e:
+                  errors.append(f"XML inválido en {p}: {e}")
+
+          try:
+              import yaml
+              for ext in ("*.yml", "*.yaml"):
+                  for p in pathlib.Path(".").rglob(ext):
+                      if any(part in {".git", "build", ".gradle"} for part in p.parts):
+                          continue
+                      try:
+                          list(yaml.safe_load_all(p.read_text(encoding="utf-8")))
+                      except Exception as e:
+                          errors.append(f"YAML inválido en {p}: {e}")
+          except ImportError:
+              import shutil, subprocess
+              if shutil.which("ruby"):
+                  for ext in ("*.yml", "*.yaml"):
+                      for p in pathlib.Path(".").rglob(ext):
+                          if any(part in {".git", "build", ".gradle"} for part in p.parts):
+                              continue
+                          r = subprocess.run(["ruby", "-ryaml", "-e", "YAML.safe_load(File.read(ARGV[0]))", str(p)], capture_output=True, text=True)
+                          if r.returncode != 0:
+                              errors.append(f"YAML inválido en {p}: {r.stderr.strip()}")
+
+          if errors:
+              print("\n".join(errors), file=sys.stderr)
+              sys.exit(1)
+          print("Sintaxis JSON/XML/YAML verificada sin errores.")
+          PY
+
+      - name: Check no ignored or planning artifacts are tracked in Git
+        run: |
+          tracked="$(git ls-files '*.keystore' '*.jks' 'keystore.properties' '*.pem' '*.key' '*.crt' '*.db' '*.db-wal' '*.db-shm' '*.aar' '*.xcframework' '.env*' 'AGENTS.md' 'CLAUDE.md' 'plan.md' 'estado.md' 'docs/plan.md' 'docs/estado.md' '.claude/**')"
+          if [ -n "$tracked" ]; then
+            echo "Archivos sensibles, de planificación interna o artefactos compilados rastreados en Git:"
+            echo "$tracked"
+            exit 1
+          fi
+
+      - name: Check iOS XCFramework doc & config path alignment
+        run: |
+          python3 - <<'PY'
+          import pathlib, sys
+
+          expected = "Frameworks/VigiaCore.xcframework"
+          files = [
+              "README.md",
+              "docs/instalacion.md",
+              "ios/README.md",
+              "ios/project.yml",
+          ]
+          missing = [f for f in files if expected not in pathlib.Path(f).read_text(encoding="utf-8")]
+          if missing:
+              print(f"Falta referencia alineada '{expected}' en: {', '.join(missing)}", file=sys.stderr)
+              sys.exit(1)
+          print("Rutas de XCFramework alineadas en documentación y project.yml.")
+          PY
+
+  pii-and-secrets-scan:
+    name: Anti-PII & secrets scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan secrets with Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Structural check for private keys, personal emails, Tailscale IPs and tokens
+        run: |
+          python3 - <<'PY'
+          import pathlib, re, subprocess, sys
+
+          private_key_rx = re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH |PGP |DSA |ENCRYPTED )?PRIVATE KEY-----")
+          personal_email_rx = re.compile(r"\b([a-z0-9._%+-]+)@(?:gmail|hotmail|outlook|yahoo)\.(?:com|es|net|org|co\.[a-z]{2})\b", re.I)
+          tailscale_ip_rx = re.compile(r"\b(100\.(?:6[4-9]|[7-9]\d|1[01]\d|12[0-7])\.\d{1,3}\.\d{1,3})\b")
+          token_rx = re.compile(r"\b(?:ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|gho_[A-Za-z0-9]{20,}|sk-(?:proj-|live-|test-)?[A-Za-z0-9_-]{20,}|xox[baprs]-[A-Za-z0-9-]{10,}|AIza[0-9A-Za-z_-]{35}|AKIA[0-9A-Z]{16})\b")
+
+          def is_test_file(rel: str) -> bool:
+              return (
+                  rel.endswith("_test.go")
+                  or rel.endswith("Test.kt")
+                  or rel.endswith("Tests.swift")
+              )
+
+          def is_example_tailscale_ip(ip: str) -> bool:
+              # RFC 6598 CIDR base o rango de ejemplos documentados en CONTRIBUTING.md (100.64.0.x).
+              return ip == "100.64.0.0" or ip.startswith("100.64.0.")
+
+          files = subprocess.check_output(["git", "ls-files"], text=True).splitlines()
+          hits = []
+          for rel in files:
+              if rel == ".github/workflows/ci.yml":
+                  continue
+              p = pathlib.Path(rel)
+              if not p.is_file():
+                  continue
+              try:
+                  text = p.read_text(encoding="utf-8")
+              except UnicodeDecodeError:
+                  continue
+
+              test_file = is_test_file(rel)
+              for lineno, line in enumerate(text.splitlines(), 1):
+                  if private_key_rx.search(line):
+                      hits.append(f"{rel}:{lineno}: [private-key-pem] cabecera de llave privada detectada")
+                  for m in personal_email_rx.finditer(line):
+                      local = m.group(1).lower()
+                      if local not in {"example", "user", "noreply"} and not local.endswith("noreply"):
+                          hits.append(f"{rel}:{lineno}: [personal-email] correo personal no anonimizado")
+                  if not test_file:
+                      for m in tailscale_ip_rx.finditer(line):
+                          if not is_example_tailscale_ip(m.group(1)):
+                              hits.append(f"{rel}:{lineno}: [tailscale-ip] literal IP 100.64-127 fuera de ejemplo RFC 6598")
+                  if token_rx.search(line):
+                      hits.append(f"{rel}:{lineno}: [hardcoded-token] posible token o credencial hardcodeada")
+
+          if hits:
+              print("Se detectaron posibles datos personales o secretos:\n" + "\n".join(hits), file=sys.stderr)
+              sys.exit(1)
+          print(f"Escaneo estructural anti-PII/secretos limpio sobre {len(files)} archivos rastreados.")
+          PY
+
+  docker-build:
+    name: Docker image & compose check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate compose.yml
+        run: docker compose config -q
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Build vigia-agent Docker image
+        run: docker build -t vigia-agent:ci .
+
+      - name: Verify vigia-agent CLI inside container
+        run: docker run --rm vigia-agent:ci -help
+
+  android-test:
+    name: Android AAR & unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Ensure Android NDK & gomobile
+        run: |
+          if [ -z "${ANDROID_NDK_HOME:-}" ]; then
+            if [ -n "${ANDROID_NDK_LATEST_HOME:-}" ] && [ -d "${ANDROID_NDK_LATEST_HOME}" ]; then
+              echo "ANDROID_NDK_HOME=${ANDROID_NDK_LATEST_HOME}" >> "$GITHUB_ENV"
+            else
+              NDK_DIR="$(ls -d "$ANDROID_HOME"/ndk/* 2>/dev/null | sort -V | tail -1 || true)"
+              if [ -z "$NDK_DIR" ]; then
+                yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;27.2.12479018" >/dev/null
+                NDK_DIR="$(ls -d "$ANDROID_HOME"/ndk/* | sort -V | tail -1)"
+              fi
+              echo "ANDROID_NDK_HOME=${NDK_DIR}" >> "$GITHUB_ENV"
+            fi
+          fi
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+          go install golang.org/x/mobile/cmd/gomobile golang.org/x/mobile/cmd/gobind
+          "$(go env GOPATH)/bin/gomobile" init
+
+      - name: Build vigia-core.aar
+        run: |
+          mkdir -p android/app/libs
+          ./scripts/build-aar.sh
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-home-cache-cleanup: true
+
+      - name: Run Android unit tests
+        run: |
+          cd android
+          ./gradlew testDebugUnitTest --no-daemon
+
+      - name: Stop Gradle daemon
+        if: always()
+        run: |
+          cd android
+          ./gradlew --stop
+
+  ios-build:
+    name: iOS XcodeGen & Simulator build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XcodeGen
+        run: brew list xcodegen >/dev/null 2>&1 || brew install xcodegen
+
+      - name: Generate Xcode project
+        run: |
+          cd ios
+          xcodegen generate
+
+      - name: Build Vigia iOS Simulator target
+        run: |
+          xcodebuild \
+            -project ios/Vigia.xcodeproj \
+            -scheme Vigia \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            build

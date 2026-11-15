@@ -1,0 +1,19 @@
+services:
+  vigia-agent:
+    build: .
+    container_name: vigia-agent
+    restart: unless-stopped
+    # network_mode: host es necesario en Linux para que ARP/NDP, mDNS, SSDP
+    # y el escaneo de la LAN vean los equipos reales de la red doméstica.
+    network_mode: host
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_RAW
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - vigia-data:/data
+
+volumes:
+  vigia-data:

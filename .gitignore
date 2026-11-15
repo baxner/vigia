@@ -1,0 +1,41 @@
+/bin/
+*.aar
+# Binario de la CLI en la raíz (sin la barra también ignoraba cmd/vigia-scan/).
+/vigia-scan
+
+# Bases de datos, secretos, llaves de firma y certificados locales
+*.db
+*.db-wal
+*.db-shm
+*.keystore
+*.jks
+keystore.properties
+*.pem
+*.key
+*.crt
+.env*
+
+# Datos de la prueba manual del agente (vigia-agent run -data ...): nunca se commitea.
+/cmd/vigia-agent/.devdata/
+
+# App Android (android/) — build de Gradle, no el proyecto en sí.
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/.idea/
+android/.kotlin/
+
+# App iOS (ios/) — artefactos generados por build-xcframework.sh, XcodeGen y Xcode.
+*.xcframework
+ios/*.xcodeproj
+ios/build/
+ios/DerivedData/
+
+# Sistema y herramientas locales de asistencia
+.DS_Store
+AGENTS.md
+CLAUDE.md
+plan.md
+estado.md
+.claude/
