@@ -119,6 +119,74 @@ class WifiScanner(context: Context) {
         WifiScanOutcome(networks = networks, throttled = !gotFreshResults, scanThrottleEnabled = scanThrottleEnabled)
     }
 
+    data class ConnectedWifiSnapshot(
+        val security: WifiSecurity,
+        val hasWps: Boolean,
+    )
+
+    /**
+     * Lee el último caché de `scanResults` (y, en API 31+, `WifiInfo.currentSecurityType`)
+     * sin llamar a `startScan()`, para conocer cifrado/WPS de la red activa sin gastar cuota.
+     */
+    @Suppress("DEPRECATION")
+    fun cachedConnectedWifi(targetBssid: String?): ConnectedWifiSnapshot? {
+        val manager = wifiManager ?: return null
+        val bssid = targetBssid?.takeIf { it.isNotBlank() }
+            ?: try {
+                manager.connectionInfo?.bssid?.takeIf { it.isNotBlank() }
+            } catch (_: SecurityException) {
+                null
+            }
+
+        val results = try {
+            manager.scanResults.orEmpty()
+        } catch (_: SecurityException) {
+            emptyList()
+        }
+        val match = if (bssid != null) {
+            results.firstOrNull { !it.BSSID.isNullOrBlank() && it.BSSID.equals(bssid, ignoreCase = true) }
+        } else {
+            null
+        }
+        if (match != null) {
+            val caps = match.capabilities.orEmpty()
+            return ConnectedWifiSnapshot(
+                security = securityFromCapabilities(caps),
+                hasWps = hasWps(caps),
+            )
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val securityType = try {
+                manager.connectionInfo?.currentSecurityType
+            } catch (_: SecurityException) {
+                null
+            }
+            val mapped = securityType?.let(::securityFromCurrentSecurityType)
+            if (mapped != null && mapped != WifiSecurity.UNKNOWN) {
+                return ConnectedWifiSnapshot(security = mapped, hasWps = false)
+            }
+        }
+        return null
+    }
+
+    private fun securityFromCurrentSecurityType(type: Int): WifiSecurity =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            when (type) {
+                android.net.wifi.WifiInfo.SECURITY_TYPE_OPEN -> WifiSecurity.OPEN
+                android.net.wifi.WifiInfo.SECURITY_TYPE_WEP -> WifiSecurity.WEP
+                android.net.wifi.WifiInfo.SECURITY_TYPE_PSK,
+                android.net.wifi.WifiInfo.SECURITY_TYPE_EAP -> WifiSecurity.WPA2
+                android.net.wifi.WifiInfo.SECURITY_TYPE_SAE,
+                android.net.wifi.WifiInfo.SECURITY_TYPE_OWE,
+                android.net.wifi.WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE,
+                android.net.wifi.WifiInfo.SECURITY_TYPE_EAP_WPA3_ENTERPRISE_192_BIT -> WifiSecurity.WPA3
+                else -> WifiSecurity.UNKNOWN
+            }
+        } else {
+            WifiSecurity.UNKNOWN
+        }
+
     /** true si llegó el broadcast de resultados nuevos; false si hubo timeout o throttling. */
     private suspend fun requestScanAndAwait(manager: WifiManager): Boolean =
         withTimeoutOrNull(SCAN_WAIT_TIMEOUT_MS) {
@@ -177,7 +245,7 @@ class WifiScanner(context: Context) {
             hasWps = hasWps(caps),
             vendor = vendor,
             distanceLabel = estimatedDistanceLabel(frequency, level),
-            isConnected = bssidValue.isNotBlank() && bssidValue == connectedBssid,
+            isConnected = bssidValue.isNotBlank() && bssidValue.equals(connectedBssid, ignoreCase = true),
             // is80211mcResponder es API 28+.
             rttResponder = Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && is80211mcResponder,
         )

@@ -72,6 +72,16 @@ class SecurityRepository(
     private val refreshMutex = Mutex()
 
     private var lastSuccessAt: Instant? = null
+    private var lastContextKey: RefreshContextKey? = null
+    private var cachedWifiKey: String? = null
+    private var cachedWifiInfo: WifiInfo? = null
+
+    private data class RefreshContextKey(
+        val hasAgent: Boolean,
+        val viewingRemote: Boolean,
+        val networkKey: String?,
+        val wifi: WifiInfo?,
+    )
 
     /** `true` si la red actual la vigila el agente ("Red monitoreada"): decide qué camino sigue [refresh] y qué estado vacío le conviene a la UI si falla. */
     val monitoredByAgent: Boolean get() = activeAgentRepository.value != null
@@ -105,29 +115,64 @@ class SecurityRepository(
         recentAlerts: List<AlertDto> = emptyList(),
         force: Boolean = false,
     ): Result<SecurityReport> = refreshMutex.withLock {
+        val agentRepo = activeAgentRepository.value
+        val viewingRemote = agentRepo != null && isViewingRemote()
+        val wifiKey = wifiCacheKeyFor(network)
+        if (wifiKey == null) {
+            cachedWifiKey = null
+            cachedWifiInfo = null
+        } else if (wifi != null) {
+            cachedWifiKey = wifiKey
+            cachedWifiInfo = wifi
+        } else if (wifiKey != cachedWifiKey) {
+            cachedWifiKey = null
+            cachedWifiInfo = null
+        }
+        val resolvedWifi = wifi ?: if (wifiKey != null && wifiKey == cachedWifiKey) cachedWifiInfo else null
+        val effectiveWifi = if (viewingRemote) null else resolvedWifi
+        val contextKey = RefreshContextKey(
+            hasAgent = agentRepo != null,
+            viewingRemote = viewingRemote,
+            networkKey = if (viewingRemote) null else localNetworkKeyFor(network)?.value,
+            wifi = effectiveWifi,
+        )
+
         val last = lastSuccessAt
         val cached = _report.value
-        if (!force && last != null && cached != null && Duration.between(last, clock()) < MinRefreshInterval) {
+        if (
+            !force &&
+            last != null &&
+            cached != null &&
+            contextKey == lastContextKey &&
+            Duration.between(last, clock()) < MinRefreshInterval
+        ) {
             return@withLock Result.success(cached)
         }
 
-        val agentRepo = activeAgentRepository.value
         val result = if (agentRepo != null) {
-            val effectiveWifi = if (isViewingRemote()) null else wifi
             resolveMonitoredSecurityReport(agentRepo::security, engine, devices, network, effectiveWifi, recentAlerts)
         } else {
             // Ver el contrato § "Hallazgos reconocidos v1.3": sin agente, los
             // reconocimientos los guarda el teléfono (por red) y se los pasa
             // al motor; con agente, ya vienen aplicados en el informe.
             val acknowledged = localNetworkKeyFor(network)?.let(store::acknowledgedFindings).orEmpty()
-            resolveLocalSecurityReport(engine, devices, network, wifi, recentAlerts, acknowledged)
+            resolveLocalSecurityReport(engine, devices, network, effectiveWifi, recentAlerts, acknowledged)
         }
         result.onSuccess { report ->
             _report.value = report
             lastSuccessAt = clock()
+            lastContextKey = contextKey
             report.router?.let(store::setLastRouterInfo)
         }
         result
+    }
+
+    private fun wifiCacheKeyFor(network: CurrentNetwork?): String? {
+        if (network?.isWifi != true) return null
+        val bssid = network.bssid?.takeIf { it.isNotBlank() }
+        if (bssid != null) return "bssid:${bssid.lowercase()}"
+        val ssid = network.ssid?.takeIf { it.isNotBlank() } ?: return null
+        return "ssid:$ssid"
     }
 
     /**

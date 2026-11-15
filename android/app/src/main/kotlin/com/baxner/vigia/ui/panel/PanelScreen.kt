@@ -116,8 +116,8 @@ fun PanelScreen(
     // escaneo (nunca al abrir el Panel: la Wi-Fi solo se sondea al abrir Seguridad).
     val securityViewModel: SecurityViewModel = viewModel()
     val securityUiState by securityViewModel.uiState.collectAsStateWithLifecycle()
-    LaunchedEffect(knownDevices) {
-        if (!demoMode) securityViewModel.onDevicesChanged(knownDevices, scanViewModel.uiState.value.network)
+    LaunchedEffect(knownDevices, uiState.network, (agentState as? AgentPanelState.Linked)?.viewingRemote) {
+        if (!demoMode) securityViewModel.onDevicesChanged(knownDevices, uiState.network)
     }
     // Fila "Internet · 18 ms · bien" (fase 7, ver docs/plan.md § "Fase 7",
     // y `ui/agent/AgentCard.kt"): se refresca al entrar a "Red monitoreada"

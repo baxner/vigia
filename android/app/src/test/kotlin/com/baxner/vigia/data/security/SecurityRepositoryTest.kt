@@ -265,4 +265,56 @@ class SecurityRepositoryTest {
             server.shutdown()
         }
     }
+
+    @Test
+    fun `wifi conocida se conserva al refrescar con wifi null en la misma red y no pisa con 100`() = runTest {
+        var now = Instant.parse("2026-10-09T10:00:00Z")
+        val seenWifis = mutableListOf<WifiInfo?>()
+        val engine = object : SecurityEngine {
+            override val isAvailable = true
+            override fun report(input: SecurityInput): SecurityReport? {
+                seenWifis += input.wifi
+                return SecurityReport(score = if (input.wifi?.security == "open") 65 else 100)
+            }
+            override fun routerInfo(gateway: String): RouterInfo? = null
+            override fun portCatalog(): List<PortCatalogEntry> = emptyList()
+        }
+        val bssidNetwork = network.copy(bssid = "AA:BB:CC:DD:EE:FF")
+        val repo = SecurityRepository(MutableStateFlow(null), engine, InMemorySecurityStore()) { now }
+
+        val openWifi = WifiInfo(ssid = "Casa", security = "open", wps = true)
+        val first = repo.refresh(emptyList(), bssidNetwork, openWifi, force = true).getOrThrow()
+        assertEquals(65, first.score)
+
+        // Simula PanelViewModel llamando despues de 90 s con wifi = null y BSSID en minusculas.
+        now = now.plusSeconds(90)
+        val afterPanel = repo.refresh(emptyList(), network.copy(bssid = "aa:bb:cc:dd:ee:ff"), null, force = false).getOrThrow()
+        assertEquals(65, afterPanel.score)
+        assertEquals(listOf(openWifi, openWifi), seenWifis)
+    }
+
+    @Test
+    fun `llegar wifi nueva o cambiar modo remoto invalida cache de 60 s`() = runTest {
+        var now = Instant.parse("2026-10-09T10:00:00Z")
+        val seenWifis = mutableListOf<WifiInfo?>()
+        val engine = object : SecurityEngine {
+            override val isAvailable = true
+            override fun report(input: SecurityInput): SecurityReport? {
+                seenWifis += input.wifi
+                return SecurityReport(score = if (input.wifi?.security == "open") 60 else 100)
+            }
+            override fun routerInfo(gateway: String): RouterInfo? = null
+            override fun portCatalog(): List<PortCatalogEntry> = emptyList()
+        }
+        val repo = SecurityRepository(MutableStateFlow(null), engine, InMemorySecurityStore()) { now }
+
+        val withoutWifi = repo.refresh(emptyList(), network, null, force = false).getOrThrow()
+        assertEquals(100, withoutWifi.score)
+
+        // Aunque pasen solo 10 s y force = false, al llegar WifiInfo real debe recalcular.
+        now = now.plusSeconds(10)
+        val withWifi = repo.refresh(emptyList(), network, WifiInfo(ssid = "Casa", security = "open"), force = false).getOrThrow()
+        assertEquals(60, withWifi.score)
+        assertEquals(2, seenWifis.size)
+    }
 }

@@ -84,6 +84,7 @@ class SecurityViewModel(application: Application) : AndroidViewModel(application
 
     /** La Wi-Fi solo se vuelve a escanear en [onOpen] (ver esa nota); [onDevicesChanged] reusa esto. */
     private var lastWifiInfo: WifiInfo? = null
+    private var lastWifiBssid: String? = null
 
     /** Lo último que mandó la pantalla (ver [onOpen]/[onDevicesChanged]): lo reusan [acknowledge]/[unacknowledge] para refrescar sin que la UI tenga que volver a pasarlo. */
     private var lastDevices: List<KnownDevice> = emptyList()
@@ -96,9 +97,17 @@ class SecurityViewModel(application: Application) : AndroidViewModel(application
     fun onOpen(devices: List<KnownDevice>, network: CurrentNetwork?) {
         lastDevices = devices
         lastNetwork = network
+        syncWifiContext(network)
         refreshJob?.cancel()
         refreshJob = viewModelScope.launch {
-            lastWifiInfo = runCatching { wifiInfoFor(network) }.getOrNull()
+            val scanned = runCatching { wifiInfoFor(network) }.getOrNull()
+            if (scanned != null) {
+                lastWifiInfo = scanned
+                lastWifiBssid = network?.bssid?.takeIf { it.isNotBlank() }?.lowercase()
+            } else if (network?.isWifi != true) {
+                lastWifiInfo = null
+                lastWifiBssid = null
+            }
             doRefresh(devices, network, force = true)
         }
     }
@@ -120,9 +129,16 @@ class SecurityViewModel(application: Application) : AndroidViewModel(application
     fun onDevicesChanged(devices: List<KnownDevice>, network: CurrentNetwork?) {
         lastDevices = devices
         lastNetwork = network
+        syncWifiContext(network)
         refreshJob?.cancel()
         refreshJob = viewModelScope.launch {
             delay(DebounceMs)
+            if (network?.isWifi == true && lastWifiInfo == null) {
+                lastWifiInfo = runCatching { cachedWifiInfoFor(network) }.getOrNull()
+                if (lastWifiInfo != null) {
+                    lastWifiBssid = network.bssid?.takeIf { it.isNotBlank() }?.lowercase()
+                }
+            }
             doRefresh(devices, network, force = false)
         }
     }
@@ -167,12 +183,39 @@ class SecurityViewModel(application: Application) : AndroidViewModel(application
     /** Ver [SecurityRepository.routerSeenFromHere]. */
     fun routerSeenFromHere(phoneCidr: String?): Boolean = repository.routerSeenFromHere(phoneCidr)
 
+    private fun syncWifiContext(network: CurrentNetwork?) {
+        if (network?.isWifi != true) {
+            lastWifiInfo = null
+            lastWifiBssid = null
+            return
+        }
+        val currentBssid = network.bssid?.takeIf { it.isNotBlank() }?.lowercase()
+        if (currentBssid != null && lastWifiBssid != null && currentBssid != lastWifiBssid) {
+            lastWifiInfo = null
+            lastWifiBssid = currentBssid
+        } else if (lastWifiBssid == null && currentBssid != null) {
+            lastWifiBssid = currentBssid
+        }
+    }
+
     /** La [WifiInfo] del contrato para el punto de acceso al que está conectado el teléfono ahora, o null sin Wi-Fi/sin BSSID. */
     private suspend fun wifiInfoFor(network: CurrentNetwork?): WifiInfo? {
-        val bssid = network?.bssid?.takeIf { network.isWifi && it.isNotBlank() } ?: return null
+        if (network?.isWifi != true) return null
+        val bssid = network.bssid?.takeIf { it.isNotBlank() }
         val outcome = wifiScanner.scanNetworks()
-        val connected = outcome.networks.firstOrNull { it.bssid == bssid } ?: return null
-        return WifiInfo(ssid = network.ssid.orEmpty(), security = connected.security.toWireValue(), wps = connected.hasWps)
+        val connected = bssid?.let { target ->
+            outcome.networks.firstOrNull { it.bssid.equals(target, ignoreCase = true) }
+        }
+        if (connected != null) {
+            return WifiInfo(ssid = network.ssid.orEmpty(), security = connected.security.toWireValue(), wps = connected.hasWps)
+        }
+        return cachedWifiInfoFor(network)
+    }
+
+    private fun cachedWifiInfoFor(network: CurrentNetwork?): WifiInfo? {
+        if (network?.isWifi != true) return null
+        val snapshot = wifiScanner.cachedConnectedWifi(network.bssid) ?: return null
+        return WifiInfo(ssid = network.ssid.orEmpty(), security = snapshot.security.toWireValue(), wps = snapshot.hasWps)
     }
 
     private fun WifiSecurity.toWireValue(): String = when (this) {
